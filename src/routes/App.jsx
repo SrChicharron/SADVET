@@ -6,6 +6,8 @@ import Clientes from '@pages/Clientes'
 import NotFound from '@pages/NotFound404'
 import AppContext from '../context/AppContext'
 import Layout from '@containers/Layout'
+import '@styles/global.css'
+import '@styles/_vars.scss'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 const App = () => {

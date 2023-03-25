@@ -1,8 +1,10 @@
 import React from 'react'
 
-const Layout = () => {
+const Layout = ({children}) => {
   return (
-    <div>Layout</div>
+    <div id='Layout'>
+        {children}
+    </div>
   )
 }
 
