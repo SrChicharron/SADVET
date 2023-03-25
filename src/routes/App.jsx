@@ -4,12 +4,13 @@ import Home from '@pages/Home'
 import Mascotas from '@pages/Mascotas'
 import Clientes from '@pages/Clientes'
 import NotFound from '@pages/NotFound404'
+import AppContext from '../context/AppContext'
+import Layout from '@containers/Layout'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 const App = () => {
-    const estadoInicial = useEstadoInicial();
     return (
-        <AppContext.Provider value={estadoInicial}>
+        <AppContext.Provider>
             <BrowserRouter>
                 <Layout>
                     <Routes>
