@@ -1,8 +1,13 @@
-import React from 'react'
+import React from 'react' 
+import NavBar from '@components/NavBar'
+import ButtonNavBar from '../components/ButtonNavBar'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div>
+      <NavBar />
+      <ButtonNavBar />
+    </div>
   )
 }
 

@@ -8,6 +8,8 @@ body {
     font-size: var(--body-font-size-desk);
     font-weight: var(--font-normal);
     color: var(--text-color);
+    margin: 0;
+    padding: 0;
 }
 h1, h2, h3 {
     font-family: var(--header-font);
@@ -30,6 +32,10 @@ p {
     font-size: var(--body-font-size-desk);
     letter-spacing: 0.5%;
     line-height: 1.5;
+}
+a {
+    text-decoration: none;
+    color: var(--text-color);
 }
 
 /* QUERY PARA CAMBIAR EL TAMAÑO DE LA TIPOGRAFÍA CUANDO ES TAMAÑO MOBILE */
