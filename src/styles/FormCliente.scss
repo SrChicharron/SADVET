@@ -1,0 +1,83 @@
+@import 'vars';
+
+.formCliente{
+    width: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.formContainer{
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    width: 400px;
+    height: 555px;
+    margin-top: 10px;
+    border-style: groove;
+    border-radius: 10px;
+}
+
+.formularioCliente{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.label{
+    font-size: var(--small-font-size-desk);
+    font-weight: var(--font-bold);
+    margin-bottom: 4px;
+}
+
+.input{
+    height: 32px;
+    background-color: #F0F0F0;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.botonPrincipal{
+    height: 48px;
+    border-radius: 62px;
+    cursor: pointer;
+    font-size: var(--body-font-size-desk);
+    font-weight: var(--font-bold);
+    border: none;
+    color: var(--white);
+    background-color: #83BE42;
+    margin-bottom: 20px;
+    margin-top: 250px;
+}
+
+
+//DISENO MODAL//
+
+.modalFormCliente{
+    width: 50%;
+}
+
+.modalHeader Button{
+    margin-top: 10px;
+    border-style: none;
+    background-color: #83BE42;
+}
+
+.modalFooter Button.botonCancelar{
+    border-radius: 20px;
+    background-color: red;
+    border-style: none;
+}
+
+.modalFooter Button.botonAgregar{
+    border-radius: 20px;
+    background-color: #83BE42;
+    border-style: none;
+}
+
+
+
+
+
+@media (max-width:640px){
+
+}
