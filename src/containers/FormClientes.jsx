@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const FormClientes = () => {
+const FormClientes = (props) => {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -21,15 +21,15 @@ const FormClientes = () => {
                     <input type='text' className='input'/>
 
                     <label className='label'>Celular</label>
-                    <input type='tel' max='10' className='input' maxLength="10"/>
+                    <input type='tel' max='10' className='input' maxLength="12" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder='123-456-7890'/>
 
                     <input type='submit' className='botonPrincipal' value='Agregar cliente'/>
                 </form>
             </div>
 
-            <Button variant="primary" onClick={handleShow}>
+            {/* {<Button variant="primary" onClick={handleShow}>
                 Abrir modal
-            </Button>
+            </Button>} */}
 
                 <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false} className='modalFormCliente'>
                     <Modal.Header className='modalHeader'>
