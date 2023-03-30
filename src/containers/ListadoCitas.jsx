@@ -6,6 +6,10 @@ const ListadoCitas = () => {
   return (
     <div>
       <ItemListCitas/>
+      <ItemListCitas/>
+      <ItemListCitas/>
+      <ItemListCitas/>
+      <ItemListCitas/>
     </div>
   )
 }

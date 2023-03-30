@@ -19,7 +19,6 @@ const Home = () => {
             <FormCitas />
           </div>
           <div className='content__listCitas'>
-              
             <ListadoCitas />
           </div>
         </div>
