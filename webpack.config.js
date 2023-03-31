@@ -13,7 +13,7 @@ module.exports = {
     },
    mode:'development',
    resolve: { // extensión de archivos a tomar en cuenta
-       extensions: ['.js', '.jsx'],
+       extensions: ['.js', '.jsx', '.scss', '.css', '.png', '.jpg', '.jpeg', '.svg'],
        alias: {
         '@components': path.resolve(__dirname, 'src/components/'),
         '@containers': path.resolve(__dirname, 'src/containers/'),
@@ -25,11 +25,11 @@ module.exports = {
    module: { // loaders para cada tipo de archivo
        rules: [ // reglas para usar
            {
-               test: /\.(js|jsx)$/, // extensiones en las cuales actuará babel
+               test: /\.(js|jsx|css|scss|sass)$/, // extensiones en las cuales actuará babel
                exclude: /node_modules/, // siempre excluir node modules
                use: { // indicamos el loader
-                   loader: 'babel-loader' // babel
-               }
+                   loader: 'babel-loader',
+               },
            },
            {
                test: /\.html$/, // extensiones html

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, {useState} from 'react';
 import '@styles/FormCliente.scss';
 import Button from 'react-bootstrap/Button';
@@ -68,3 +69,14 @@ const FormClientes = (props) => {
 }
 
 export default FormClientes;
+=======
+import React from 'react'
+
+const FormClientes = () => {
+  return (
+    <div>FormClientes</div>
+  )
+}
+
+export default FormClientes
+>>>>>>> carlos
