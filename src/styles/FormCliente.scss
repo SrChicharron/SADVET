@@ -19,7 +19,7 @@
 .formularioCliente{
     display: flex;
     flex-direction: column;
-    margin: 20px;
+    margin: 0;
 }
 
 .label{
@@ -45,38 +45,7 @@
     border: none;
     color: var(--white);
     background-color: #83BE42;
-    margin-bottom: 20px;
-    margin-top: 160px;
 }
-
-
-//DISENO MODAL//
-
-.modalFormCliente{
-    width: 50%;
-}
-
-.modalHeader Button{
-    margin-top: 10px;
-    border-style: none;
-    background-color: #83BE42;
-}
-
-.modalFooter Button.botonCancelar{
-    border-radius: 20px;
-    background-color: red;
-    border-style: none;
-}
-
-.modalFooter Button.botonAgregar{
-    border-radius: 20px;
-    background-color: #83BE42;
-    border-style: none;
-}
-
-
-
-
 
 @media (max-width:640px){
     
