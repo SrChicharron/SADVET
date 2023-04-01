@@ -2,18 +2,19 @@ import React,{useState} from 'react'
 import NavBar from '@components/NavBar'
 import ButtonNavBar from '@components/ButtonNavBar'
 import FormClientes from "@containers/FormClientes"
-import ListadoCitas from "@containers/ListadoCitas"
+import ListadoClientes from "@containers/ListadoClientes"
 import '@styles/Clientes.scss'
 import ModalFormCliente from '@containers/ModalFormCliente'
-import Button from 'react-bootstrap/Button'
+
 
 const Clientes = () => {
-  const [modal, setModal] = useState(false);
+  
 
+  const [modal, setModal] = useState(false);
   const openModal= ()=>{
     setModal(!modal)
-    
-}
+    }
+
   return (
     <div>
       <NavBar />
@@ -29,7 +30,8 @@ const Clientes = () => {
             <FormClientes/>
           </div>
           <div className='content__listClientes'>
-            <ListadoCitas />
+            
+            <ListadoClientes />
           </div>
         </div>
       </div>
