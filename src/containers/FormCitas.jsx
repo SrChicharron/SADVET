@@ -4,62 +4,45 @@ import useClientes from "@hooks/useClientes";
 import useCitas from "@hooks/useCitas";
 import "@styles/FormCitas.scss";
 
-const FormCitas = ({ cita, setCita }) => {
+const FormCitas = ({ cita, setCita, handleSubmit, handleChange }) => {
 
-  const [citaForm, setCitaForm] = useState({
-    fecha: cita.fecha,
-    descripcion: cita.descripcion,
-    idCliente: cita.cliente.id,
-    idMascota: cita.mascota.id
-  })
   const url = "http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
-
   const clientes = useClientes.useGetClientes(url);
 
+  // const urlAdd = "http://srchicharron.com:8080/dancing-queen/citas/addcita";
+  // const { useAddCita } = useCitas;
+
   // VARIABLES PARA ALMACENAR LOS DATOS DEL FORMULARIO DE CITAS
-  const handleChange = (event) => {
-    setCitaForm({ ...citaForm, [event.target.name]: event.target.value });
-    // Setear los valores de citaForm a cita
-    setCita({
-      fecha: citaForm.fecha,
-      descripcion: citaForm.descripcion,
-      cliente: {
-        id: citaForm.idCliente
-      },
-      mascota: {
-        id: citaForm.idMascota
-      }
-    })
-    console.log(cita);
-    console.log(citaForm);
-  };
+  // const handleChange = (event) => {
+  //   setCita({ ...cita, [event.target.name]: event.target.value });
+  //   console.log(cita);
+  // };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("hanldeSubmit")
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   console.log("hanldeSubmit")
+  //   await useAddCita(urlAdd, cita);
 
-    // Hacer una validación si cita.idCita es vacio crear una cita, si no es vacio editar una cita
-    if (cita.idCita === "" || cita.idCita === undefined) {
-      console.log("Es una nueva cita -> ");
-      console.log("Datos de la cita")
-      console.log(cita)
-      const url = "http://srchicharron.com:8080/dancing-queen/citas/addcita";
-      useCitas.useAddCita(url, cita);
-      //crearCita();
-    } else {
-      console.log("Se tiene que editar esta cita -> " + cita.idCita);
-      //editarCita();
-    }
-  };
+  //   // // Hacer una validación si cita.idCita es vacio crear una cita, si no es vacio editar una cita
+  //   // if (cita.idCita === "" || cita.idCita === undefined) {
+  //   //   console.log("Es una nueva cita -> ");
+  //   //   console.log("Datos de la cita")
+  //   //   console.log(cita)
+  //   //   //crearCita();
+  //   // } else {
+  //   //   console.log("Se tiene que editar esta cita -> " + cita.idCita);
+  //   //   //editarCita();
+  //   // }
+  // };
 
-  // Funciones para crear una cita
-  const crearCita = () => {
-    const url = "http://srchicharron.com:8080/dancing-queen/citas/addcita";
-    const citas = cita;
-    console.log(cita);
-    const cita = useCitas.useAddCita(url, citas);
-    //formatearFormulario();
-  };
+  // // Funciones para crear una cita
+  // const crearCita = () => {
+  //   const url = "http://srchicharron.com:8080/dancing-queen/citas/addcita";
+  //   const citas = cita;
+  //   console.log(cita);
+  //   const cita = useCitas.useAddCita(url, citas);
+  //   //formatearFormulario();
+  // };
 
   // // Funciones para editar una cita
   // const editarCita = () => {
@@ -80,29 +63,24 @@ const FormCitas = ({ cita, setCita }) => {
   // };
 
   //Funcion para formatear el formulario
-  const formatearFormulario = () => {
-    // LIMPIAR EL FORMULARIO
-    setCita({
-      idCita: '',
-      fecha: '',
-      descripcion: '',
-      cliente: {
-        id: '',
-        nombre: '',
-        apellidos: '',
-      },
-      mascota: {
-        id: '',
-        nombre: '',
-      }
-    });
-    setCitaForm({
-      fecha: "",
-      descripcion: "",
-      idCliente: "",
-      idMascota: ""
-    })
-  };
+  
+  // const formatearFormulario = () => {
+  //   // LIMPIAR EL FORMULARIO
+  //   setCita({
+  //     idCita: '',
+  //     fecha: '',
+  //     descripcion: '',
+  //     cliente: {
+  //       id: '',
+  //       nombre: '',
+  //       apellidos: '',
+  //     },
+  //     mascota: {
+  //       id: '',
+  //       nombre: '',
+  //     }
+  //   });
+  // };
   return (
     <>
       <form className="form__citas" onSubmit={handleSubmit}>

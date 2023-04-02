@@ -4,6 +4,7 @@ import ButtonNavBar from "@components/ButtonNavBar";
 import FormCitas from "@containers/FormCitas";
 import ListadoCitas from "@containers/ListadoCitas";
 import ModalFormCitas from "@containers/ModalFormCitas";
+import useCitas from "@hooks/useCitas";
 import "@styles/Home.scss";
 
 const Home = () => {
@@ -51,6 +52,39 @@ const Home = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // FORMULARIO 
+
+  const handleSubmit = async (e) => {
+    const urlAdd = "http://srchicharron.com:8080/dancing-queen/citas/addcita";
+    e.preventDefault();
+    console.log("hanldeSubmit")
+    console.log(cita)
+    //await useCitas.useAddCita(urlAdd, cita);
+  }
+
+    const formatearFormulario = () => {
+    // LIMPIAR EL FORMULARIO
+    setCita({
+      idCita: '',
+      fecha: '',
+      descripcion: '',
+      cliente: {
+        id: '',
+        nombre: '',
+        apellidos: '',
+      },
+      mascota: {
+        id: '',
+        nombre: '',
+      }
+    });
+  };
+
+    const handleChange = (event) => {
+    setCita({ ...cita, [event.target.name]: event.target.value });
+    console.log(cita);
+  };
+
   return (
     <div>
       <NavBar />
@@ -80,6 +114,8 @@ const Home = () => {
               setCita={setCita}
               show={show} 
               handleClose={handleClose}
+              handleSubmit={handleSubmit}
+              handleChange={handleChange}
               // citasDataInit={citaEdit}
             />
           </div>
