@@ -1,89 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import useClientes from "@hooks/useClientes";
 import useCitas from "@hooks/useCitas";
 import "@styles/FormCitas.scss";
 
-const FormCitas = ({ cita, setCita, handleSubmit, handleChange }) => {
-
-  const url = "http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
+const FormCitas = ({ cita, setCita, handleSubmit, handleChange, formatearFormulario, formCita }) => {
+  const url =
+    "http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
   const clientes = useClientes.useGetClientes(url);
 
-  // const urlAdd = "http://srchicharron.com:8080/dancing-queen/citas/addcita";
-  // const { useAddCita } = useCitas;
-
-  // VARIABLES PARA ALMACENAR LOS DATOS DEL FORMULARIO DE CITAS
-  // const handleChange = (event) => {
-  //   setCita({ ...cita, [event.target.name]: event.target.value });
-  //   console.log(cita);
-  // };
-
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   console.log("hanldeSubmit")
-  //   await useAddCita(urlAdd, cita);
-
-  //   // // Hacer una validación si cita.idCita es vacio crear una cita, si no es vacio editar una cita
-  //   // if (cita.idCita === "" || cita.idCita === undefined) {
-  //   //   console.log("Es una nueva cita -> ");
-  //   //   console.log("Datos de la cita")
-  //   //   console.log(cita)
-  //   //   //crearCita();
-  //   // } else {
-  //   //   console.log("Se tiene que editar esta cita -> " + cita.idCita);
-  //   //   //editarCita();
-  //   // }
-  // };
-
-  // // Funciones para crear una cita
-  // const crearCita = () => {
-  //   const url = "http://srchicharron.com:8080/dancing-queen/citas/addcita";
-  //   const citas = cita;
-  //   console.log(cita);
-  //   const cita = useCitas.useAddCita(url, citas);
-  //   //formatearFormulario();
-  // };
-
-  // // Funciones para editar una cita
-  // const editarCita = () => {
-  //   const url = "http://srchicharron.com:8080/dancing-queen/citas/editcita";
-  //   const citas = cita;
-  //   const cita = useCitas.useEditCita(url, citas);
-  //   console.log(cita);
-  //   formatearFormulario();
-  // };
-
-  // // FUNCION PARA ELIMINAR UNA CITA
-  // const eliminarCita = (idCita) => {
-  //   const url = "http://srchicharron.com:8080/dancing-queen/citas/deletecita";
-  //   const citas = cita;
-  //   const cita = useCitas.useDeleteCita(url, citas);
-  //   console.log(cita);
-  //   formatearFormulario();
-  // };
-
-  //Funcion para formatear el formulario
-  
-  // const formatearFormulario = () => {
-  //   // LIMPIAR EL FORMULARIO
-  //   setCita({
-  //     idCita: '',
-  //     fecha: '',
-  //     descripcion: '',
-  //     cliente: {
-  //       id: '',
-  //       nombre: '',
-  //       apellidos: '',
-  //     },
-  //     mascota: {
-  //       id: '',
-  //       nombre: '',
-  //     }
-  //   });
-  // };
   return (
     <>
-      <form className="form__citas" onSubmit={handleSubmit}>
+      <form className="form__citas" onSubmit={handleSubmit} ref={formCita}>
         <div className="container__inputs">
           <label htmlFor="idCliente" className="label__citas labels">
             Cliente
@@ -94,7 +22,7 @@ const FormCitas = ({ cita, setCita, handleSubmit, handleChange }) => {
             onChange={handleChange}
           >
             <option value={cita.idCliente}>
-              {cita.cliente.nombre + " " + cita.cliente.apellidos}
+              {cita.nombreCliente + " " + cita.apellidosCliente}
             </option>
             {clientes.map((cliente, indice) => (
               <option key={indice} value={cliente.id}>
@@ -113,7 +41,7 @@ const FormCitas = ({ cita, setCita, handleSubmit, handleChange }) => {
             className="input__citas inputs"
             onChange={handleChange}
           >
-            <option value={cita.mascota.id}>{cita.mascota.nombre}</option>
+            <option value={cita.idMascota}>{cita.nombreMascota}</option>
             <option value="2">Mascota 2</option>
             <option value="3">Mascota 3</option>
           </select>

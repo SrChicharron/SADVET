@@ -4,10 +4,14 @@ import useCitas from "@hooks/useCitas";
 import ItemListCitas from '@components/ItemListCita'
 import '@styles/ListadoCitas.scss'
 
-const ListadoCitas = ( { citaEdit, setCitaEdit, showModal, handleClose } ) => {
+const ListadoCitas = ( { citas, citaEdit, setCitaEdit, showModal, handleClose } ) => {
   const url = 'http://srchicharron.com:8080/dancing-queen/citas/getallcitas';
 
   const citasResponse = useCitas.useGetCitas(url);
+  // Ordenar citas por fecha
+  citasResponse.sort((a, b) => {
+    return new Date(a.fecha) - new Date(b.fecha);
+  });
 
   return (
     <div>

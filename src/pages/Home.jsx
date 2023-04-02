@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import NavBar from "@components/NavBar";
 import ButtonNavBar from "@components/ButtonNavBar";
 import FormCitas from "@containers/FormCitas";
@@ -8,7 +9,7 @@ import useCitas from "@hooks/useCitas";
 import "@styles/Home.scss";
 
 const Home = () => {
-
+  // ----------------- VARIABLES PARA EL MODAL -----------------
   const [show, setShow] = useState(false);
   const showModal = () => {
     if (windowSize < 768) {
@@ -16,26 +17,11 @@ const Home = () => {
     } else {
       setShow(!show);
     }
-  }
+  };
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [cita, setCita] = useState({
-    idCita: '',
-    fecha: '',
-    descripcion: '',
-    cliente: {
-      id: '',
-      nombre: '',
-      apellidos: '',
-    },
-    mascota: {
-      id: '',
-      nombre: '',
-    }
-  })
-  const [citaEdit, setCitaEdit] = useState({});
-
+  // ----------------- OBTENER EL TAMAÑO DE LA PANTALLA -----------------
   // FUNCIÓN PARA OBTENER EL TAMAÑO DE LA PANTALLA
   const [windowSize, setWindowSize] = useState(window.innerWidth);
 
@@ -45,60 +31,129 @@ const Home = () => {
       setWindowSize(window.innerWidth);
     }
     // Añadir un event listener para el evento "resize"
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     // Llamar a la función handleResize al inicio para comprobar el tamaño inicial de la pantalla
     handleResize();
     // Limpiar el event listener al desmontar el componente
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // FORMULARIO 
+  // ----------------- VARIABLES PARA EL FORMULARIO -----------------
+  const [cita, setCita] = useState({
+    idCita: "",
+    fecha: "",
+    descripcion: "",
+    idCliente: "",
+    nombreCliente: "",
+    apellidosCliente: "",
+    idMascota: "",
+    nombreMascota: "",
+  });
 
-  const handleSubmit = async (e) => {
-    const urlAdd = "http://srchicharron.com:8080/dancing-queen/citas/addcita";
+  const formCita = useRef(null);
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("hanldeSubmit")
-    console.log(cita)
-    //await useCitas.useAddCita(urlAdd, cita);
-  }
+    console.log("hanldeSubmit");
+    const formData = new FormData(formCita.current);
 
-    const formatearFormulario = () => {
+    if (cita.idCita === "" || cita.idCita === undefined) {
+      console.log("Es una nueva cita -> ");
+      console.log(cita);
+
+      const urlAdd = "http://srchicharron.com:8080/dancing-queen/citas/addcita";
+      const newCita = {
+        fecha: formData.get("fecha"),
+        descripcion: formData.get("descripcion"),
+        cliente: {
+          id: formData.get("idCliente"),
+        },
+        mascota: {
+          id: formData.get("idMascota"),
+        },
+      };
+      console.log("Datos de la newCita");
+      console.log(newCita);
+      axios({
+        method: "POST",
+        url: urlAdd,
+        data: JSON.stringify(newCita),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((response) => {
+          console.log(response);
+          formatearFormulario();
+          //recargarCitas();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      console.log("Se tiene que editar esta cita -> " + cita.idCita);
+      //editarCita();
+    }
+  };
+
+  const formatearFormulario = () => {
     // LIMPIAR EL FORMULARIO
     setCita({
-      idCita: '',
-      fecha: '',
-      descripcion: '',
-      cliente: {
-        id: '',
-        nombre: '',
-        apellidos: '',
-      },
-      mascota: {
-        id: '',
-        nombre: '',
-      }
+      idCita: "",
+      fecha: "",
+      descripcion: "",
+      idCliente: "",
+      nombreCliente: "",
+      apellidosCliente: "",
+      idMascota: "",
+      nombreMascota: "",
     });
   };
 
-    const handleChange = (event) => {
+  const handleChange = (event) => {
     setCita({ ...cita, [event.target.name]: event.target.value });
     console.log(cita);
   };
+
+  // ----------------- LISTAR LAS CITAS -----------------
+  const [citas, setCitas] = useState([]);
+  const urlGetCitas = 'http://srchicharron.com:8080/dancing-queen/citas/getallcitas';
+
+  // función para recargar las citas
+  function recargarCitas() {
+    const getCitas = async () => {
+      const citasResponse = await useCitas.useGetCitas(urlGetCitas);
+      citasResponse.sort((a, b) => {
+        return new Date(a.fecha) - new Date(b.fecha);
+      });
+      setCitas(citasResponse);
+    };
+    getCitas();
+  }
+  //recargarCitas();
+
+  // useEffect(() => {
+  //   const getCitas = async () => {
+  //     const citasResponse = await useCitas.useGetCitas(urlGetCitas);
+  //     citasResponse.sort((a, b) => {
+  //       return new Date(a.fecha) - new Date(b.fecha);
+  //     });
+  //     setCitas(citasResponse);
+  //   };
+  //   getCitas();
+  // }, [urlGetCitas]);
 
   return (
     <div>
       <NavBar />
       {/* // Hacer una validación para cuando la pantalla sea menor a 768px mostrar el modal */}
-      {
-        windowSize < 768 && (
-          <ModalFormCitas 
-            className="modalFormCitas" 
-            cita={cita}
-            setCita={setCita} 
-            show={show} 
-            handleClose={handleClose} /> 
-        )
-      }
+      {windowSize < 768 && (
+        <ModalFormCitas
+          className="modalFormCitas"
+          cita={cita}
+          setCita={setCita}
+          show={show}
+          handleClose={handleClose}
+        />
+      )}
       <div className="container__citas">
         <div className="content__titleCitas">
           <h3 className="title__citas">ADMINISTRADOR DE CITAS</h3>
@@ -109,21 +164,24 @@ const Home = () => {
             AGREGAR CITA
           </button>
           <div className="content__formCitas">
-            <FormCitas 
+            <FormCitas
               cita={cita}
               setCita={setCita}
-              show={show} 
+              show={show}
               handleClose={handleClose}
               handleSubmit={handleSubmit}
               handleChange={handleChange}
+              formatearFormulario={formatearFormulario}
+              formCita={formCita}
               // citasDataInit={citaEdit}
             />
           </div>
           <div className="content__listCitas">
             <ListadoCitas
+              citas={citas}
               citaEdit={cita}
               setCitaEdit={setCita}
-              showModal = {showModal}
+              showModal={showModal}
               handleClose={handleClose}
               // citasDataInit={citaEdit}
               // setCitaEdit={setCitaEdit}

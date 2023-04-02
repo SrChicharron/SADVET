@@ -6,6 +6,8 @@ import male from "@assets/images/male.png";
 import female from "@assets/images/female.png";
 import "@styles/ItemListCita.scss";
 import "@styles/swipeable-list.scss";
+import useCitas from "@hooks/useCitas";
+import axios from "axios";
 import {
   LeadingActions,
   SwipeableList,
@@ -15,30 +17,32 @@ import {
 } from "react-swipeable-list";
 import "react-swipeable-list/dist/styles.css";
 
-const ItemListCita = ( { idCita, cita, citaEdit, setCitaEdit, showModal, handleClose } ) => {
+const ItemListCita = ({
+  idCita,
+  cita,
+  citaEdit,
+  setCitaEdit,
+  showModal,
+  handleClose,
+}) => {
   const [citaEditItem, setCitaEditItem] = useState({
     idCita: cita.id,
     fecha: cita.fecha,
     descripcion: cita.descripcion,
-    cliente: {
-      id: cita.cliente.id,
-      nombre: cita.cliente.nombre,
-      apellidos: cita.cliente.apellidos,
-    },
-    mascota: {
-      id: cita.mascota.id,
-      nombre: cita.mascota.nombre,
-    }
-  })
+    idCliente: cita.cliente.id,
+    nombreCliente: cita.cliente.nombre,
+    apellidosCliente: cita.cliente.apellidos,
+    idMascota: cita.mascota.id,
+    nombreMascota: cita.mascota.nombre,
+  });
   const leadingActions = () => (
     <LeadingActions>
-      <SwipeAction onClick={() => {
-        setCitaEdit(citaEditItem)
-        console.log(citaEdit)
-        console.log(citaEditItem)
-        showModal();
-      }
-        }>
+      <SwipeAction
+        onClick={() => {
+          setCitaEdit(citaEditItem);
+          showModal();
+        }}
+      >
         Editar
       </SwipeAction>
     </LeadingActions>
@@ -47,12 +51,32 @@ const ItemListCita = ( { idCita, cita, citaEdit, setCitaEdit, showModal, handleC
     <TrailingActions>
       <SwipeAction
         destructive={true}
-        onClick={() => console.info("swipe action triggered")}
+        onClick={() => {
+          console.log("Eliminar");
+          console.log(citaEditItem.idCita);
+          eliminarCita();
+        }}
       >
         Eliminar
       </SwipeAction>
     </TrailingActions>
   );
+
+  // funcion para eliminar la cita
+  const eliminarCita = () => {
+    const urlDelete =
+      "http://srchicharron.com:8080/dancing-queen/citas/deletecita/"+citaEditItem.idCita;
+
+    axios.get(urlDelete)
+      .then((response) => {
+        console.log(response);
+        formatearFormulario();
+        //recargarCitas();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   return (
     <SwipeableList>
@@ -63,11 +87,11 @@ const ItemListCita = ( { idCita, cita, citaEdit, setCitaEdit, showModal, handleC
         <div className="container__itemListcita">
           <div className="content__imagePet">
             <img className="back__pug" src={backpug} alt="backpug" />
-            {
-              cita.mascota.especie == "PERRO" ? (
-              <img className="pug" src={Pug} alt="Mascota" /> ) : (
-                <img className="cat" src={cat} alt="Mascota" /> )
-            }
+            {cita.mascota.especie == "PERRO" ? (
+              <img className="pug" src={Pug} alt="Mascota" />
+            ) : (
+              <img className="cat" src={cat} alt="Mascota" />
+            )}
           </div>
           <div className="content__information">
             <div className="content__name">
@@ -83,11 +107,12 @@ const ItemListCita = ( { idCita, cita, citaEdit, setCitaEdit, showModal, handleC
               <p>{cita.fecha}</p>
             </div>
             <div className="content__description">
-              <p className="description">
-                {cita.descripcion}
-              </p>
+              <p className="description">{cita.descripcion}</p>
             </div>
-            <img className="icon__gender" src={cita.mascota.sexo == "M" ? male : female} />
+            <img
+              className="icon__gender"
+              src={cita.mascota.sexo == "M" ? male : female}
+            />
           </div>
         </div>
       </SwipeableListItem>
