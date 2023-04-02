@@ -20,6 +20,7 @@ module.exports = {
         '@pages': path.resolve(__dirname, 'src/pages/'),
         '@styles': path.resolve(__dirname, 'src/styles/'),
         '@assets': path.resolve(__dirname, 'src/assets/'),
+        '@hooks': path.resolve(__dirname, 'src/hooks/'),
        }
    },
    module: { // loaders para cada tipo de archivo
