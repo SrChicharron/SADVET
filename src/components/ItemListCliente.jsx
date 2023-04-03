@@ -11,10 +11,10 @@ import {
 import "react-swipeable-list/dist/styles.css";
 import axios from "axios";
 
-const ItemListCliente = ({cliente, showModal,setClienteEdit}) => {
+const ItemListCliente = ({idCliente,cliente,clienteEdit,setClienteEdit,showModal,handleClose,onDelete}) => {
 
 const [clienteEditItem, setClienteEditItem] = useState({
-    idCli: cliente.id,
+    idCliente: cliente.id,
     nombre: cliente.nombre,
     apellidos: cliente.apellidos,
     telefono: cliente.telefono,
@@ -24,6 +24,8 @@ const [clienteEditItem, setClienteEditItem] = useState({
     <LeadingActions>
       <SwipeAction onClick={() => {
           setClienteEdit(clienteEditItem);
+          console.log(clienteEdit);
+          console.log(clienteEditItem);
           showModal();
         }}>
         Editar
@@ -35,12 +37,53 @@ const [clienteEditItem, setClienteEditItem] = useState({
     <TrailingActions>
       <SwipeAction
         destructive={true}
-        onClick={() => console.info("swipe action triggered")}
+        onClick={() => {
+          console.log("eliminar"+clienteEditItem.idCliente)
+          console.log(clienteEdit);
+          console.log(clienteEditItem);
+          console.log("se establecio el cliente to deelete");
+          deleteCliente();
+        }}
       >
         Delete
       </SwipeAction>
     </TrailingActions>
   );
+
+  const deleteCliente = () => {
+    
+    console.log("onDelete");
+      console.log("Es una nueva cita -> ");
+      console.log(clienteEditItem);
+
+      const urlAdd = "http://srchicharron.com:8080/dancing-queen/clientes/deletecliente";
+      //const urlAdd = "http://localhost:2813/mascotas/deletemascota";
+      const newCliente = {
+        id: clienteEditItem.idCliente,
+      };
+      console.log("Datos del newCliente");
+      console.log(newCliente);
+      axios({
+        method: "POST",
+        url: urlAdd,
+        data: JSON.stringify(newCliente),
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers":
+            "POST, GET, PUT, DELETE, OPTIONS, HEAD, Authorization, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Access-Control-Allow-Origin",
+          "Content-Type": "application/json",
+        },
+        mode: "no-cors",
+      })
+        .then((response) => {
+          console.log(response);
+          onDelete();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    
+  };
 
   return (
     <SwipeableList>

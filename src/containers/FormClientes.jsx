@@ -3,47 +3,26 @@ import '@styles/FormCliente.scss';
 import axios from 'axios';
 
 
-const FormClientes = () => {
+const FormClientes = ({client, setClient, handleSubmit, handleChange,formCliente }) => {
+
+    const handle2ndChange = (event) => {
+        setClient({ ...client, [event.target.name]: event.target.value });
+      };
     
-    const formulario = useRef(null)
-   
-    const handleSubmit=()=>{
-        const formData=new FormData(formulario.current)
-        const data={
-            nombre:formData.get('nomCli'),
-            apellidos:formData.get('apsCli'),
-            telefono:formData.get('celCli'),
-            email:formData.get('emCli')
-        }
-
-        axios({
-                    method:'POST',
-                    url:'http://srchicharron.com:8080/dancing-queen/clientes/addcliente',
-                    data:JSON.stringify(data),
-                    headers:{'Content-Type':'application/json'}
-        }) .then(response => {
-                console.log(response);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-            
-    }
-
     return (
         
-                <form className='formularioCliente' onSubmit={handleSubmit} ref={formulario}>
+                <form className='formularioCliente' onSubmit={handleSubmit} ref={formCliente}>
                     <label className='label'>Nombre(s)</label>
-                    <input type='text' className='input' name='nomCli'/>
+                    <input type='text' className='input' name='nombre' value={client.nombre} onChange={handleChange}/>
 
                     <label className='label'>Apellidos</label>
-                    <input type='text' className='input' name='apsCli'/>
+                    <input type='text' className='input' name='apellidos' value={client.apellidos} onChange={handleChange}/>
 
                     <label className='label'>Email</label>
-                    <input type='text' className='input' name='emCli'/>
+                    <input type='text' className='input' name='email' value={client.email} onChange={handleChange}/>
 
                     <label className='label'>Celular</label>
-                    <input type='tel' max='10' className='input' name='celCli' maxLength="12" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder='123-456-7890'/>
+                    <input type='tel' max='10' className='input' name='telefono' value={client.telefono} onChange={handleChange} maxLength="12" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder='123-456-7890'/>
 
                     <input type='submit' className='botonPrincipal' value='Agregar cliente'/>
                 </form>

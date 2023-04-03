@@ -3,37 +3,12 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'
-const ModalFormCliente = ({show, handleClose, handleChange, cliente}) => {
+const ModalFormCliente = ({show, handleClose, handleChange, client, setClient, handleSubmit, formCliente}) => {
 
-    const textoBoton="Guardar";
-    
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    const formulario = useRef(null)
-   
-    const handleSubmit=()=>{
-        const formData=new FormData(formulario.current)
-        const data={
-            nombre:formData.get('nomCli'),
-            apellidos:formData.get('apsCli'),
-            telefono:formData.get('celCli'),
-            email:formData.get('emCli')
-        }
-
-        console.log(data)
-
-        axios({
-                    method:'POST',
-                    url:'http://srchicharron.com:8080/dancing-queen/clientes/addcliente',
-                    data:JSON.stringify(data),
-                    headers:{'Content-Type':'application/json'}
-        }) .then(response => {
-                console.log(response);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-            
-    }
+    // VARIABLES PARA ALMACENAR LOS DATOS DEL FORMULARIO DE CITAS
+  const handle2ndChange = (event) => {
+    setClient({ ...client, [event.target.name]: event.target.value });
+  };
     
     return (
         <Modal keyboard={false} className='modalFormCliente' show={show} onHide={handleClose}>
@@ -44,29 +19,30 @@ const ModalFormCliente = ({show, handleClose, handleChange, cliente}) => {
                     </Modal.Header>
 
                     <Modal.Body>
-                    <form className='formularioCliente' ref={formulario}>
+                    <form className='formularioCliente' onSubmit={handleSubmit} ref={formCliente}>
                     <label className='label'>Nombre(s)</label>
-                    <input type='text' className='input' name='nomCli' value={cliente.nombre}/>
+                    <input type='text' className='input' name='nombre' value={client.nombre} onChange={handleChange}/>
 
                     <label className='label'>Apellidos</label>
-                    <input type='text' className='input' name='apsCli' value={cliente.apellidos}/>
+                    <input type='text' className='input' name='apellidos' value={client.apellidos} onChange={handleChange}/>
 
                     <label className='label'>Email</label>
-                    <input type='text' className='input' name='emCli' value={cliente.email}/>
+                    <input type='text' className='input' name='email' value={client.email} onChange={handleChange}/>
 
                     <label className='label'>Celular</label>
-                    <input type='tel' max='10' className='input' name='celCli' value={cliente.telefono} maxLength="12" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder='123-456-7890'/>
+                    <input type='tel' max='10' className='input' name='telefono' value={client.telefono} onChange={handleChange} maxLength="12" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder='123-456-7890'/>
 
+                    <Button variant="secondary" onClick={handleClose} className='botonCancelar'>
+                        Cancelar
+                    </Button>
+                    <button type='submit' onClick={handleClose} className='botonAgregar'>
+                        Guardar
+                    </button>
                     </form>
                     </Modal.Body>
 
                     <Modal.Footer className='modalFooter'>
-                    <Button variant="secondary" onClick={handleClose} className='botonCancelar'>
-                        Cancelar
-                    </Button>
-                    <Button variant="primary" onClick={handleSubmit} className='botonAgregar'>
-                        Guardar
-                    </Button>
+                    
                     </Modal.Footer>
                 </Modal>
     );
