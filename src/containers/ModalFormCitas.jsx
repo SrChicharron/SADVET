@@ -7,72 +7,29 @@ import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@styles/ModalFormCitas.scss";
 
-const ModalFormCitas = ({ cita, setCita, show, handleClose }) => {
+const ModalFormCitas = ({cita,setCita,show,handleClose,handleSubmit,handleChange,formatearFormulario,formCita,}) => {
+  const [mascotas, setMascotas] = useState([]);
+  const [idCliente, setIdCliente] = useState(0);
   const url =
     "http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
-
+  const urlMascotas =
+    "http://srchicharron.com:8080/dancing-queen/mascotas/getmascotasbyclienteid?idCliente=";
   const clientes = useClientes.useGetClientes(url);
 
-  // VARIABLES PARA ALMACENAR LOS DATOS DEL FORMULARIO DE CITAS
-  const handleChange = (event) => {
+  const fetchMascotas = async () => {
+    const req = await axios.get(urlMascotas + idCliente);
+    setMascotas(req.data);
+  };
+
+  const handleChange2nd = (event) => {
     setCita({ ...cita, [event.target.name]: event.target.value });
-    console.log(cita);
+    setIdCliente(event.target.selectedIndex);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  useEffect(() => {
+    fetchMascotas();
+  }, [idCliente]);
 
-    // Hacer una validación si cita.idCita es vacio crear una cita, si no es vacio editar una cita
-    if (cita.idCita === "" || cita.idCita === undefined) {
-      // console.log("Es una nueva cita -> " + cita.idCita);
-      crearCita();
-    } else {
-      // console.log("Se tiene que editar esta cita -> " + cita.idCita);
-      editarCita();
-    }
-  };
-
-  // Funciones para crear una cita
-  const crearCita = () => {
-    const url = "http://srchicharron.com:8080/dancing-queen/citas/addcita";
-    const citas = cita;
-    const cita = useCitas.useAddCita(url, citas);
-    console.log(cita);
-    formatearFormulario();
-  };
-
-  // Funciones para editar una cita
-  const editarCita = () => {
-    const url = "http://srchicharron.com:8080/dancing-queen/citas/editcita";
-    const citas = cita;
-    const cita = useCitas.useEditCita(url, citas);
-    console.log(cita);
-    formatearFormulario();
-  };
-
-  // FUNCION PARA ELIMINAR UNA CITA
-  const eliminarCita = (idCita) => {
-    const url = "http://srchicharron.com:8080/dancing-queen/citas/deletecita";
-    const citas = cita;
-    const cita = useCitas.useDeleteCita(url, citas);
-    console.log(cita);
-    formatearFormulario();
-  };
-
-  //Funcion para formatear el formulario
-  const formatearFormulario = () => {
-    // LIMPIAR EL FORMULARIO
-    setCita({
-      idCita: "",
-      idCliente: "",
-      nombreCliente: "",
-      apellidosCliente: "",
-      idMascota: "",
-      nombreMascota: "",
-      fechaHora: "",
-      descripcion: "",
-    });
-  };
   return (
     <Modal
       show={show}
@@ -80,12 +37,17 @@ const ModalFormCitas = ({ cita, setCita, show, handleClose }) => {
       backdrop="static"
       keyboard={false}
       className="modal__citas"
+      ref={formCita}
     >
-      <Modal.Header className="modal__header" closeButton onClick={formatearFormulario}>
+      <Modal.Header
+        className="modal__header"
+        closeButton
+        onClick={formatearFormulario}
+      >
         <Modal.Title>AÑADIR CITA</Modal.Title>
       </Modal.Header>
       <Modal.Body className="modal__body">
-        <form className="form__citas" onSubmit={handleSubmit}>
+        <form className="form__citas" onSubmit={handleSubmit} ref={formCita}>
           <div className="container__inputs">
             <label htmlFor="idCliente" className="label__citas labels">
               Cliente
@@ -93,7 +55,7 @@ const ModalFormCitas = ({ cita, setCita, show, handleClose }) => {
             <select
               name="idCliente"
               className="input__citas inputs"
-              onChange={handleChange}
+              onChange={handleChange2nd}
             >
               <option value={cita.idCliente}>
                 {cita.nombreCliente + " " + cita.apellidosCliente}
@@ -116,21 +78,24 @@ const ModalFormCitas = ({ cita, setCita, show, handleClose }) => {
               onChange={handleChange}
             >
               <option value={cita.idMascota}>{cita.nombreMascota}</option>
-              <option value="2">Mascota 2</option>
-              <option value="3">Mascota 3</option>
+              {mascotas.map((mascota, indice) => (
+                <option key={indice} value={mascota.id}>
+                  {mascota.nombre}
+                </option>
+              ))}
             </select>
           </div>
           {/* INPUT DE FECHA Y HORA DE LA CITA */}
           <div className="container__inputs">
-            <label htmlFor="fechaHora" className="label__citas labels">
+            <label htmlFor="fecha" className="label__citas labels">
               Fecha y hora
             </label>
             <input
-              name="fechaHora"
+              name="fecha"
               className="input__citas inputs"
               type="datetime-local"
               onChange={handleChange}
-              value={cita.fechaHora}
+              value={cita.fecha}
             />
           </div>
           {/* DESCRIPCIÓN DE LA CITA */}
@@ -149,12 +114,21 @@ const ModalFormCitas = ({ cita, setCita, show, handleClose }) => {
           </div>
           {/* BOTÓN PARA GUARDAR LA CITA */}
           <div className="container__inputs-modal">
-            <p onClick={() => {handleClose(); formatearFormulario()}} className="btn__cancel">
+            <p
+              onClick={() => {
+                handleClose();
+                formatearFormulario();
+              }}
+              className="btn__cancel"
+            >
               Cancelar
             </p>
             <button
               type="submit"
-              onClick={() => {handleClose(); formatearFormulario()}}
+              onClick={() => {
+                handleClose();
+                formatearFormulario();
+              }}
               className="button__citas-modal"
             >
               AGREGAR

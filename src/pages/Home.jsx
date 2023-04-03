@@ -96,7 +96,42 @@ const Home = () => {
         });
     } else {
       console.log("Se tiene que editar esta cita -> " + cita.idCita);
-      //editarCita();
+      console.log(cita);
+
+      const urlEdit = "http://srchicharron.com:8080/dancing-queen/citas/addcita";
+      const newCita = {
+        id: cita.idCita,
+        fecha: formData.get("fecha"),
+        descripcion: formData.get("descripcion"),
+        cliente: {
+          id: formData.get("idCliente"),
+        },
+        mascota: {
+          id: formData.get("idMascota"),
+        },
+      };
+      console.log("Datos de la newCita");
+      console.log(newCita);
+      axios({
+        method: "POST",
+        url: urlEdit,
+        data: JSON.stringify(newCita),
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers":
+            "POST, GET, PUT, DELETE, OPTIONS, HEAD, Authorization, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Access-Control-Allow-Origin",
+          "Content-Type": "application/json",
+        },
+        mode: "no-cors",
+      })
+        .then((response) => {
+          console.log(response);
+          formatearFormulario();
+          getAllCitas();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
   };
 
@@ -161,6 +196,10 @@ const Home = () => {
           setCita={setCita}
           show={show}
           handleClose={handleClose}
+          handleSubmit={handleSubmit}
+          handleChange={handleChange}
+          formatearFormulario={formatearFormulario}
+          formCita={formCita}
         />
       )}
       <div className="container__citas">

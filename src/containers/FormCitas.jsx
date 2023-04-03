@@ -6,13 +6,28 @@ import useMascotas from "@hooks/useMascotas";
 import "@styles/FormCitas.scss";
 
 const FormCitas = ({ cita, setCita, handleSubmit, handleChange, formatearFormulario, formCita }) => {
-  const url =
-    "http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
+
+  const [mascotas, setMascotas] = useState([]);
+  const [idCliente, setIdCliente]=useState(0);
+  const url ="http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
+  const urlMascotas="http://srchicharron.com:8080/dancing-queen/mascotas/getmascotasbyclienteid?idCliente=";
   const clientes = useClientes.useGetClientes(url);
 
-  const urlGetMascotas =
-    "http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
-  const mascotas = useClientes.useGetClientes(url);
+  const fetchMascotas = async () =>{
+    const req = await axios.get(urlMascotas+idCliente);
+    setMascotas(req.data);
+  };
+
+  const handleChange2nd = (event) => {
+    setCita({ ...cita, [event.target.name]: event.target.value });
+    setIdCliente(event.target.selectedIndex);
+    console.log("id cliente "+idCliente);
+    console.log(cita);
+  };
+
+  useEffect(() => {
+    fetchMascotas();
+  }, [idCliente]);
 
   return (
     <>
@@ -24,7 +39,7 @@ const FormCitas = ({ cita, setCita, handleSubmit, handleChange, formatearFormula
           <select
             name="idCliente"
             className="input__citas inputs"
-            onChange={handleChange}
+            onChange={handleChange2nd}
           >
             <option value={cita.idCliente}>
               {cita.nombreCliente + " " + cita.apellidosCliente}
