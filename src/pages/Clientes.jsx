@@ -168,10 +168,12 @@ const Clientes = () => {
       <div className='container__clientes main__container'>
         <div className='content__titleClientes'>
           <h3 className='title__citas'>ADMINISTRADOR DE CLIENTES</h3>
-         <input type='button' className='botonAgregarClientes' value='Agregar cliente' onClick={handleShow}/> 
         </div>
 
         <div className='body__content'>
+        <button className="button__citas button btn__addCliente" onClick={handleShow}>
+            AGREGAR CLIENTE
+          </button>
           <div className='content__formClientes'>
             {windowSize<768&&(<ModalFormCliente 
             client={client} 
