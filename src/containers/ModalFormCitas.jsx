@@ -7,7 +7,7 @@ import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@styles/ModalFormCitas.scss";
 
-const ModalFormCitas = ({cita,setCita,show,handleClose,handleSubmit,handleChange,formatearFormulario,formCita,}) => {
+const ModalFormCitas = ({cita,setCita,show,handleClose,handleSubmit,handleChange,formatearFormulario,formCita}) => {
   const [mascotas, setMascotas] = useState([]);
   const [idCliente, setIdCliente] = useState(0);
   const url =
@@ -117,7 +117,7 @@ const ModalFormCitas = ({cita,setCita,show,handleClose,handleSubmit,handleChange
             <p
               onClick={() => {
                 handleClose();
-                formatearFormulario();
+                //formatearFormulario();
               }}
               className="btn__cancel"
             >
@@ -127,7 +127,7 @@ const ModalFormCitas = ({cita,setCita,show,handleClose,handleSubmit,handleChange
               type="submit"
               onClick={() => {
                 handleClose();
-                formatearFormulario();
+                //formatearFormulario();
               }}
               className="button__citas-modal"
             >
