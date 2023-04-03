@@ -156,35 +156,14 @@ const Home = () => {
 
   // ----------------- LISTAR LAS CITAS -----------------
   const [citas, setCitas] = useState([]);
-  const getAllCitas = () => {
-    console.log("getAllCitas");
-
-    const url = "http://srchicharron.com:8080/dancing-queen/citas/getallcitas";
-    axios({
-      method: "GET",
-      url: url,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers":
-          "POST, GET, PUT, DELETE, OPTIONS, HEAD, Authorization, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Access-Control-Allow-Origin",
-        "Content-Type": "application/json",
-      },
-      mode: "no-cors",
-    })
-      .then((response) => {
-        console.log(response);
-        // const citasResponse = response.data;
-        // citasResponse.sort((a, b) => {
-        //   return new Date(a.fecha) - new Date(b.fecha);
-        // });
-        // setCitas(response.data);
-        // Recargar la pagina
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const url = "http://srchicharron.com:8080/dancing-queen/citas/getallcitas";
+  const getAllCitas = async () => {
+    const req = await axios.get(url);
+    setCitas(req.data);
   };
+  useEffect(() => {
+    getAllCitas();
+  }, []);
   return (
     <div>
       <NavBar />
@@ -207,7 +186,7 @@ const Home = () => {
           <h3 className="title__citas">ADMINISTRADOR DE CITAS</h3>
         </div>
 
-        <div className="body__content">
+        <div className="body__content-home">
           <button className="button__citas button" onClick={handleShow}>
             AGREGAR CITA
           </button>
