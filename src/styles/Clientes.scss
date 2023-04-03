@@ -6,6 +6,7 @@
     align-items: center;
     margin: auto;
     margin-top: 2rem;
+    padding: 0 1.5rem;
 }
 .content__titleClientes {
     margin-bottom: 1rem;
@@ -21,7 +22,9 @@
     background-color: #83BE42;
     display: none;
 }
-
+.btn__addCliente {
+    cursor: pointer;
+}
 // MEDIA QUERY PARA CUANDO LA PANTALLA ES DESKTOP
 @media screen and (min-width: 768px) {
     .body__content {
@@ -39,7 +42,7 @@
     }
     .content__listClientes {
         width: 50%;
-        padding: 1.5rem 0 1.5rem 1.5rem;
+        padding: 1.5rem 0;
         border-radius: 1rem;
         margin-left: 1rem;
         overflow-y: scroll;
@@ -53,7 +56,7 @@
 // MEDIA QUERY PARA CUANDO LA PANTALLA ES MOBILE
 @media screen and (max-width: 768px) {
     .body__content{
-        width: 80%;
+        width: 100%;
     }
     .content__formClientes{
         display: none;

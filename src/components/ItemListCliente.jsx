@@ -93,7 +93,7 @@ const [clienteEditItem, setClienteEditItem] = useState({
         leadingActions={leadingActions()}
         trailingActions={trailingActions()}
       >
-        <div className="container__itemListcliente">
+        {/* <div className="container__itemListcliente">
           
             <img className="avatar" src={AvatarH} alt="AvatarCliente" />
           
@@ -108,6 +108,22 @@ const [clienteEditItem, setClienteEditItem] = useState({
               <p>{cliente.telefono}</p>
             </div>
             <div className="content__descriptionCliente">
+            </div>
+          </div>
+        </div> */}
+        <div className="container__itemListcita">
+          <div className="content__imagePet">
+            <img className="avatar" src={AvatarH} alt="AvatarCliente" />
+          </div>
+          <div className="content__information">
+            <div className="content__name">
+              <p className="cita__namePet">{cliente.nombre} {cliente.apellidos}</p>
+            </div>
+            <div className="content__info">
+              <p>{cliente.email}</p>
+            </div>
+            <div className="content__datetime">
+              <p>{cliente.telefono}</p>
             </div>
           </div>
         </div>
