@@ -66,21 +66,23 @@ textarea {
 label {
     color: #303030;
 }
-button {
+.button {
     padding: 0.5rem 0;
-        border-radius: 4rem;
-        border: none;
-        font-size: var(--body-font-size-desk);
-        margin-bottom: 1rem;
-        background-color: var(--first-color);
-        color: white;
-        font-weight: bold;
-        letter-spacing: 3px;
-        font-family: var(--body-font);
-        cursor: pointer;
-        transition: all 0.3s ease;
+    border-radius: 4rem;
+    border: none;
+    font-size: var(--body-font-size-desk);
+    margin-bottom: 1rem;
+    background-color: var(--first-color);
+    color: white;
+    font-weight: bold;
+    letter-spacing: 3px;
+    font-family: var(--body-font);
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
-
+.button:hover {
+    background-color: var(--first-color-hover);
+}
 
 
 /* QUERY PARA CAMBIAR EL TAMAÑO DE LA TIPOGRAFÍA CUANDO ES TAMAÑO MOBILE */

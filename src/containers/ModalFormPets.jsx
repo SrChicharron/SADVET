@@ -1,12 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useClientes from "@hooks/useClientes";
-import useMascota from "@hooks/useMascotas";
-import "@styles/FormPets.scss";
-import "@styles/FormCitas.scss";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@styles/ModalFormCitas.scss";
 
-const FormPets = ({ pet, setPet,idCliente, setIdCliente, handleSubmit, handleChange,formMascota }) => {
-  const url =
-    "http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
+const ModalFormPets = ({
+  show,
+  handleClose,
+  pet,
+  setPet,
+  idCliente,
+  setIdCliente,
+  handleSubmit,
+  handleChange,
+  formMascota,
+}) => {
+  const url ="http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
   const clientes = useClientes.useGetClientes(url);
   console.log(pet);
 
@@ -17,9 +27,20 @@ const FormPets = ({ pet, setPet,idCliente, setIdCliente, handleSubmit, handleCha
     console.log(idCliente);
   };
 
+
   return (
-    <>
-      <form className="form__pets" onSubmit={handleSubmit} ref={formMascota}>
+    <Modal
+      show={show}
+      onHide={handleClose}
+      backdrop="static"
+      keyboard={false}
+      className="modal__citas"
+    >
+      <Modal.Header className="modal__header" closeButton>
+        <Modal.Title>AÑADIR MASCOTA</Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="modal__body">
+        <form className="form__citas" onSubmit={handleSubmit} ref={formMascota}>
         <div className="container__inputs">
           <label htmlFor="idCliente" className="label__citas labels">
             Dueño
@@ -142,15 +163,23 @@ const FormPets = ({ pet, setPet,idCliente, setIdCliente, handleSubmit, handleCha
             value={pet.notas}
           />
         </div>
-        {/* BOTÓN PARA GUARDAR LA CITA */}
-        <div className="container__inputs">
-          <button type="submit" className="button__citasPets button">
-            AGREGAR MASCOTA
-          </button>
-        </div>
-      </form>
-    </>
+          {/* BOTÓN PARA GUARDAR LA CITA */}
+          <div className="container__inputs-modal">
+            <p onClick={handleClose} className="btn__cancel">
+              Cancelar
+            </p>
+            <button
+              type="submit"
+              onClick={handleClose}
+              className="button__citas-modal"
+            >
+              AGREGAR
+            </button>
+          </div>
+        </form>
+      </Modal.Body>
+    </Modal>
   );
 };
 
-export default FormPets;
+export default ModalFormPets;
