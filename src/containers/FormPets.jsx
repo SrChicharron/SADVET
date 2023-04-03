@@ -124,7 +124,7 @@ const FormPets = ({ pet, setPet,idCliente, setIdCliente, handleSubmit, handleCha
             name="sexo"
             className=" inputs"
             type="text"
-            placeholder="Sexo"
+            placeholder="H o M"
             onChange={handleChange}
             value={pet.sexo}
           />

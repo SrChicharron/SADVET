@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef  } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import NavBar from "@components/NavBar";
 import ButtonNavBar from "@components/ButtonNavBar";
 import FormPets from "@containers/FormPets";
@@ -45,12 +45,12 @@ const Mascotas = () => {
     peso: "",
     notas: "",
     idCliente: "",
-    nombreCliente:"",
-    apellidoCliente:"",
+    nombreCliente: "",
+    apellidoCliente: "",
     sexo: "",
     especie: "",
     raza: "",
-    edad: ""
+    edad: "",
   });
 
   const formMascota = useRef(null);
@@ -64,16 +64,17 @@ const Mascotas = () => {
       console.log("Es una nueva cita -> ");
       console.log(pet);
 
-      const urlAdd = "http://srchicharron.com:8080/dancing-queen/mascotas/addmascota";
+      const urlAdd =
+        "http://srchicharron.com:8080/dancing-queen/mascotas/addmascota";
       //const urlAdd = "http://localhost:2813/mascotas/addmascota";
       const newPet = {
-        nombre:formData.get("nombreMascota"),
+        nombre: formData.get("nombreMascota"),
         fechaNacimiento: formData.get("fechaNacimiento"),
         peso: formData.get("peso"),
-        notas:formData.get("notas"),
-        sexo:formData.get("sexo"),
-        especie:formData.get("especie"),
-        raza:formData.get("raza"),
+        notas: formData.get("notas"),
+        sexo: formData.get("sexo"),
+        especie: formData.get("especie"),
+        raza: formData.get("raza"),
         cliente: {
           id: formData.get("idCliente"),
         },
@@ -104,17 +105,18 @@ const Mascotas = () => {
       console.log("Se tiene que editar esta cita -> " + pet.idMascota);
       console.log(pet);
 
-      const urlEdit = "http://srchicharron.com:8080/dancing-queen/mascotas/updatemascota";
+      const urlEdit =
+        "http://srchicharron.com:8080/dancing-queen/mascotas/updatemascota";
       //const urlEdit = "http://localhost:2813/mascotas/updatemascota";
       const newPet = {
         id: pet.idMascota,
-        nombre:formData.get("nombreMascota"),
+        nombre: formData.get("nombreMascota"),
         fechaNacimiento: formData.get("fechaNacimiento"),
         peso: formData.get("peso"),
-        notas:formData.get("notas"),
-        sexo:formData.get("sexo"),
-        especie:formData.get("especie"),
-        raza:formData.get("raza"),
+        notas: formData.get("notas"),
+        sexo: formData.get("sexo"),
+        especie: formData.get("especie"),
+        raza: formData.get("raza"),
         cliente: {
           id: formData.get("idCliente"),
         },
@@ -146,7 +148,6 @@ const Mascotas = () => {
   };
 
   const onDelete = () => {
-    
     console.log("onDeleteOrigin");
     formatearFormulario();
     fetchMascotas();
@@ -161,12 +162,12 @@ const Mascotas = () => {
       peso: "",
       notas: "",
       idCliente: "",
-      nombreCliente:"",
-      apellidosCliente:"",
+      nombreCliente: "",
+      apellidosCliente: "",
       sexo: "",
       especie: "",
       raza: "",
-      edad: ""
+      edad: "",
     });
   };
 
@@ -176,29 +177,35 @@ const Mascotas = () => {
   };
 
   // ----------------- LISTAR LAS MASCOTAS -----------------
-  const urlGetPets = 'http://srchicharron.com:8080/dancing-queen/mascotas/getmascotasbyclienteid?idCliente=';
-  const [idCliente, setIdCliente]= useState(0);
+  const urlGetPets =
+    "http://srchicharron.com:8080/dancing-queen/mascotas/getmascotasbyclienteid?idCliente=";
+  const [idCliente, setIdCliente] = useState(0);
   const [pets, setPets] = useState([]);
-  const fetchMascotas = async () =>{
-    const req = await axios.get(urlGetPets+idCliente);
+  const fetchMascotas = async () => {
+    const req = await axios.get(urlGetPets + idCliente);
     setPets(req.data);
   };
-  useEffect(()=>{
-		fetchMascotas();
-	}, [idCliente])
+  useEffect(() => {
+    fetchMascotas();
+  }, [idCliente]);
   return (
     <div>
       <NavBar />
-      {
-        windowSize < 768 && (
-          <ModalFormPets 
-            className="modalFormCitas" 
-            mascota={mascota}
-            setMascota={setPet} 
-            show={show} 
-            handleClose={handleClose} /> 
-        )
-      }
+      {windowSize < 768 && (
+        <ModalFormPets
+          className="modalFormCitas"
+          pet={pet}
+          setPet={setPet}
+          show={show}
+          handleClose={handleClose}
+          handleSubmit={handleSubmit}
+          handleChange={handleChange}
+          formatearFormulario={formatearFormulario}
+          formMascota={formMascota}
+          idCliente={idCliente}
+          setIdCliente={setIdCliente}
+        />
+      )}
       <div className="container__pets">
         <div className="content__titlePets">
           <h3 className="title__pets">ADMINISTRADOR DE MASCOTAS</h3>
@@ -223,7 +230,7 @@ const Mascotas = () => {
             />
           </div>
           <div className="content__listPets">
-            <ListadoPets 
+            <ListadoPets
               pets={pets}
               mascotaEdit={pet}
               setMascotaEdit={setPet}
@@ -236,7 +243,7 @@ const Mascotas = () => {
       </div>
       <ButtonNavBar />
     </div>
-  )
-}
+  );
+};
 
-export default Mascotas
+export default Mascotas;
