@@ -165,7 +165,7 @@ const Clientes = () => {
   return (
     <div>
       <NavBar />
-      <div className='container__clientes'>
+      <div className='container__clientes main__container'>
         <div className='content__titleClientes'>
           <h3 className='title__citas'>ADMINISTRADOR DE CLIENTES</h3>
          <input type='button' className='botonAgregarClientes' value='Agregar cliente' onClick={handleShow}/> 
