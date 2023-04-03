@@ -16,8 +16,6 @@ const FormClientes = () => {
             email:formData.get('emCli')
         }
 
-        console.log(data)
-
         axios({
                     method:'POST',
                     url:'http://srchicharron.com:8080/dancing-queen/clientes/addcliente',
@@ -29,6 +27,7 @@ const FormClientes = () => {
             .catch(error => {
                 console.error(error);
             });
+            
     }
 
     return (

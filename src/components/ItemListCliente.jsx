@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext,useState} from "react";
 import AvatarH from "@assets/images/AvatarH.png";
 import "@styles/ItemListCliente.scss";
 import {
@@ -9,12 +9,23 @@ import {
   TrailingActions,
 } from "react-swipeable-list";
 import "react-swipeable-list/dist/styles.css";
-import AppContext from "../context/AppContext";
+import axios from "axios";
 
-const ItemListCliente = ({allClientes}) => {
+const ItemListCliente = ({cliente, showModal,setClienteEdit}) => {
+
+const [clienteEditItem, setClienteEditItem] = useState({
+    idCli: cliente.id,
+    nombre: cliente.nombre,
+    apellidos: cliente.apellidos,
+    telefono: cliente.telefono,
+    email: cliente.email
+  });
   const leadingActions = () => (
     <LeadingActions>
-      <SwipeAction onClick={() => console.info("swipe action triggered")}>
+      <SwipeAction onClick={() => {
+          setClienteEdit(clienteEditItem);
+          showModal();
+        }}>
         Editar
       </SwipeAction>
     </LeadingActions>
@@ -43,13 +54,13 @@ const ItemListCliente = ({allClientes}) => {
           
           <div className="content__informationCliente">
             <div className="content__nameCliente">
-              <p className="cita__nameCliente">{allClientes.nombre} {allClientes.apellidos}</p>
+              <p className="cita__nameCliente">{cliente.nombre} {cliente.apellidos}</p>
             </div>
             <div className="content__infoCliente">
-              <p>{allClientes.email}</p>
+              <p>{cliente.email}</p>
             </div>
             <div className="content__telefonoCliente">
-              <p>{allClientes.telefono}</p>
+              <p>{cliente.telefono}</p>
             </div>
             <div className="content__descriptionCliente">
               <p className="descriptionCliente">
