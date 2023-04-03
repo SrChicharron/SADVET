@@ -16,6 +16,21 @@ export const useGetMascotas = (url) => {
     return mascota;
 }
 
+export const useGetMascotasByCliente = (url, idCliente) => {
+  // Uso de useState para guardar los datos de la API
+  const [mascota, setMascota] = useState([]);
+
+  // Uso de useEffect para consumir la API
+  useEffect ( () => {
+      const getMascotas = async () => {
+        const response = await axios(url);
+        setMascota(response.data);
+      };
+      getMascotas();
+    }, [url]);
+  return mascota;
+}
+
 // FUNCIÓN PARA DAR DE ALTA MASCOTAS
 export const useAddMascota = (url, mascotas) => {
     // Uso de useState para guardar los datos de la API

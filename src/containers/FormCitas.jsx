@@ -2,12 +2,17 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import useClientes from "@hooks/useClientes";
 import useCitas from "@hooks/useCitas";
+import useMascotas from "@hooks/useMascotas";
 import "@styles/FormCitas.scss";
 
 const FormCitas = ({ cita, setCita, handleSubmit, handleChange, formatearFormulario, formCita }) => {
   const url =
     "http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
   const clientes = useClientes.useGetClientes(url);
+
+  const urlGetMascotas =
+    "http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
+  const mascotas = useClientes.useGetClientes(url);
 
   return (
     <>
@@ -42,8 +47,11 @@ const FormCitas = ({ cita, setCita, handleSubmit, handleChange, formatearFormula
             onChange={handleChange}
           >
             <option value={cita.idMascota}>{cita.nombreMascota}</option>
-            <option value="2">Mascota 2</option>
-            <option value="3">Mascota 3</option>
+            {mascotas.map((mascota, indice) => (
+              <option key={indice} value={mascota.id}>
+                {mascota.nombre}
+              </option>
+            ))}
           </select>
         </div>
         {/* INPUT DE FECHA Y HORA DE LA CITA */}

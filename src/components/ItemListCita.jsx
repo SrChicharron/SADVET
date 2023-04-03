@@ -50,13 +50,13 @@ const ItemListCita = ({
   const trailingActions = () => (
     <TrailingActions>
       <SwipeAction
-        destructive={true}
         onClick={() => {
           console.log("Eliminar");
           console.log(citaEditItem.idCita);
           eliminarCita();
         }}
-      >
+        destructive={true}
+        >
         Eliminar
       </SwipeAction>
     </TrailingActions>
@@ -64,19 +64,32 @@ const ItemListCita = ({
 
   // funcion para eliminar la cita
   const eliminarCita = () => {
-    const urlDelete =
-      "http://srchicharron.com:8080/dancing-queen/citas/deletecita/"+citaEditItem.idCita;
+    const urlDelete = "http://srchicharron.com:8080/dancing-queen/citas/deletecita";
 
-    axios.get(urlDelete)
-      .then((response) => {
-        console.log(response);
-        formatearFormulario();
-        //recargarCitas();
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+    const newCitaToDelete = {
+      id:citaEditItem.idCita
+    };
+    console.log("Datos de la newCita");
+    console.log(newCitaToDelete);
+    axios({
+      method: "POST",
+      url: urlDelete,
+      data: JSON.stringify(newCitaToDelete),
+      headers: { 
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST, GET, OPTIONS, DELETE",
+      "Access-Control-Max-Age": "3600",
+      "Access-Control-Allow-Headers": "x-requested-with, authorization",
+      "Content-Type": "application/json" },
+    })
+    .then((response) => {
+      console.log(response);
+      //recargarCitas();
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
 
   return (
     <SwipeableList>

@@ -78,12 +78,18 @@ const Home = () => {
         method: "POST",
         url: urlAdd,
         data: JSON.stringify(newCita),
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers":
+            "POST, GET, PUT, DELETE, OPTIONS, HEAD, Authorization, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Access-Control-Allow-Origin",
+          "Content-Type": "application/json",
+        },
+        mode: "no-cors",
       })
         .then((response) => {
           console.log(response);
           formatearFormulario();
-          //recargarCitas();
+          getAllCitas();
         })
         .catch((error) => {
           console.error(error);
@@ -115,32 +121,35 @@ const Home = () => {
 
   // ----------------- LISTAR LAS CITAS -----------------
   const [citas, setCitas] = useState([]);
-  const urlGetCitas = 'http://srchicharron.com:8080/dancing-queen/citas/getallcitas';
+  const getAllCitas = () => {
+    console.log("getAllCitas");
 
-  // función para recargar las citas
-  function recargarCitas() {
-    const getCitas = async () => {
-      const citasResponse = await useCitas.useGetCitas(urlGetCitas);
-      citasResponse.sort((a, b) => {
-        return new Date(a.fecha) - new Date(b.fecha);
+    const url = "http://srchicharron.com:8080/dancing-queen/citas/getallcitas";
+    axios({
+      method: "GET",
+      url: url,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "POST, GET, PUT, DELETE, OPTIONS, HEAD, Authorization, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Access-Control-Allow-Origin",
+        "Content-Type": "application/json",
+      },
+      mode: "no-cors",
+    })
+      .then((response) => {
+        console.log(response);
+        // const citasResponse = response.data;
+        // citasResponse.sort((a, b) => {
+        //   return new Date(a.fecha) - new Date(b.fecha);
+        // });
+        // setCitas(response.data);
+        // Recargar la pagina
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error(error);
       });
-      setCitas(citasResponse);
-    };
-    getCitas();
-  }
-  //recargarCitas();
-
-  // useEffect(() => {
-  //   const getCitas = async () => {
-  //     const citasResponse = await useCitas.useGetCitas(urlGetCitas);
-  //     citasResponse.sort((a, b) => {
-  //       return new Date(a.fecha) - new Date(b.fecha);
-  //     });
-  //     setCitas(citasResponse);
-  //   };
-  //   getCitas();
-  // }, [urlGetCitas]);
-
+  };
   return (
     <div>
       <NavBar />
@@ -179,6 +188,7 @@ const Home = () => {
           <div className="content__listCitas">
             <ListadoCitas
               citas={citas}
+              setCitas={setCitas}
               citaEdit={cita}
               setCitaEdit={setCita}
               showModal={showModal}
