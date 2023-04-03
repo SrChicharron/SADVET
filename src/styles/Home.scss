@@ -43,6 +43,9 @@
 
 // MEDIA QUERY PARA CUANDO LA PANTALLA ES MOBILE
 @media screen and (max-width: 768px) {
+    .content__formCitas{
+        display: none;
+    }
     .container__citas {
         padding: 1rem;
         margin-top: 0;

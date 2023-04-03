@@ -10,6 +10,7 @@ body {
     color: var(--text-color);
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 h1, h2, h3 {
     font-family: var(--header-font);
@@ -105,5 +106,8 @@ label {
         font-size: var(--body-font-size-mobile);
         letter-spacing: 0.25%;
         line-height: 1.5;
+    }
+    .main__container{
+        overflow-x: auto;
     }
 }
