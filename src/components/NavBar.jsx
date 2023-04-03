@@ -5,8 +5,8 @@ import User from '@assets/images/user.png'
 
 const NavBar = () => {
   return (
-    <nav className="navbar">
-      <div className='content__navbar'>
+    <nav className="container__navbar-home">
+      <div className='content__navbar-home'>
         <div className="navbar__brand">
           <a href="#">
             <img className='logo__navbar' src={Logo}/>
