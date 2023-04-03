@@ -1,6 +1,8 @@
 import React, {useContext,useState} from "react";
 import AvatarH from "@assets/images/AvatarH.png";
-import "@styles/ItemListCliente.scss";
+import "@styles/ItemListCita.scss";
+import "@styles/swipeable-list.scss";
+import "react-swipeable-list/dist/styles.css";
 import {
   LeadingActions,
   SwipeableList,
@@ -106,13 +108,6 @@ const [clienteEditItem, setClienteEditItem] = useState({
               <p>{cliente.telefono}</p>
             </div>
             <div className="content__descriptionCliente">
-              <p className="descriptionCliente">
-                <p>Mascotas:</p>
-                <ul>
-                  <li>Pugberto</li>
-                  <li>Chiguasberta</li>
-                </ul>
-              </p>
             </div>
           </div>
         </div>
