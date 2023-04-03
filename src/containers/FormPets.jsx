@@ -4,78 +4,22 @@ import useMascota from "@hooks/useMascotas";
 import "@styles/FormPets.scss";
 import "@styles/FormCitas.scss";
 
-const FormPets = ({ mascota, setMascota }) => {
+const FormPets = ({ pet, setPet,idCliente, setIdCliente, handleSubmit, handleChange,formMascota }) => {
   const url =
     "http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
   const clientes = useClientes.useGetClientes(url);
+  console.log(pet);
 
   // VARIABLES PARA ALMACENAR LOS DATOS DEL FORMULARIO DE CITAS
-  const handleChange = (event) => {
-    setMascota({ ...cita, [event.target.name]: event.target.value });
-    console.log(mascota);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    // Hacer una validación si cita.idCita es vacio crear una cita, si no es vacio editar una cita
-    if (mascota.idMascota === "" || mascota.idMascota === undefined) {
-      // console.log("Es una nueva cita -> " + cita.idCita);
-      crearMascota();
-    } else {
-      // console.log("Se tiene que editar esta cita -> " + cita.idCita);
-      editarMascota();
-    }
-  };
-
-  // Funciones para crear una cita
-  const crearMascota = () => {
-    const url = "http://srchicharron.com:8080/dancing-queen/citas/addcita";
-    const mascotas = mascota;
-    const mascota = useMascota.useAddMascota(url, mascotas);
-    console.log(mascota);
-    formatearFormulario();
-  };
-
-  // Funciones para editar una cita
-  const editarMascota = () => {
-    const url = "http://srchicharron.com:8080/dancing-queen/citas/editcita";
-    const mascotas = mascota;
-    const mascota = useMascota.useEditMascota(url, mascotas);
-    console.log(mascota);
-    formatearFormulario();
-  };
-
-  // FUNCION PARA ELIMINAR UNA CITA
-  const eliminarMascota = (idMascota) => {
-    const url = "http://srchicharron.com:8080/dancing-queen/citas/deletecita";
-    const mascotas = mascota;
-    const mascota = useMascota.useDeleteMascota(url, mascota);
-    console.log(mascota);
-    formatearFormulario();
-  };
-
-  //Funcion para formatear el formulario
-  const formatearFormulario = () => {
-    // LIMPIAR EL FORMULARIO
-    setMascota({
-      idMascota: "",
-      nombreMascota: "",
-      fechaNacimiento: "",
-      peso: "",
-      notas: "",
-      idCliente: "",
-      nombreCliente: "",
-      apellidosCliente: "",
-      sexo: "",
-      especie: "",
-      raza: "",
-    });
+  const handle2ndChange = (event) => {
+    setPet({ ...pet, [event.target.name]: event.target.value });
+    setIdCliente(event.target.selectedIndex);
+    console.log(idCliente);
   };
 
   return (
     <>
-      <form className="form__pets" onSubmit={handleSubmit}>
+      <form className="form__pets" onSubmit={handleSubmit} ref={formMascota}>
         <div className="container__inputs">
           <label htmlFor="idCliente" className="label__citas labels">
             Dueño
@@ -83,10 +27,10 @@ const FormPets = ({ mascota, setMascota }) => {
           <select
             name="idCliente"
             className="input__citas inputs"
-            onChange={handleChange}
+            onChange={handle2ndChange}
           >
-            <option value={mascota.idCliente}>
-              {mascota.nombreCliente + " " + mascota.apellidosCliente}
+            <option value={pet.idCliente}>
+            {pet.nombreCliente + " " + pet.apellidoCliente}
             </option> 
             {clientes.map((cliente, indice) => (
               <option key={indice} value={cliente.id}>
@@ -105,7 +49,20 @@ const FormPets = ({ mascota, setMascota }) => {
             type="text"
             placeholder="Nombre"
             onChange={handleChange}
-            value={mascota.nombreMascota}
+            value={pet.nombreMascota}
+          />
+        </div>
+        <div className="container__inputs">
+          <label htmlFor="especie" className=" labels">
+          Especie
+          </label>
+          <input
+            name="especie"
+            className=" inputs"
+            type="text"
+            placeholder="Especie"
+            onChange={handleChange}
+            value={pet.especie}
           />
         </div>
         <div className="container__inputs">
@@ -118,20 +75,32 @@ const FormPets = ({ mascota, setMascota }) => {
             type="text"
             placeholder="Raza"
             onChange={handleChange}
-            value={mascota.raza}
+            value={pet.raza}
           />
         </div>
         <div className="container__inputs">
-          <label htmlFor="fechaNacimiento" className=" labels">
-            Edad
+          <label htmlFor="fechaNacimiento" className="label__citas labels">
+            Fecha de Nacimiento
           </label>
           <input
             name="fechaNacimiento"
+            className="input__citas inputs"
+            type="datetime-local"
+            onChange={handleChange}
+            value={pet.fechaNacimiento}
+          />
+        </div>
+        <div className="container__inputs">
+          <label htmlFor="edad" className=" labels">
+            Edad
+          </label>
+          <input
+            name="edad"
             className=" inputs"
             type="number"
             placeholder="Edad"
             onChange={handleChange}
-            value={mascota.fechaNacimiento}
+            value={pet.edad}
           />
         </div>
         <div className="container__inputs">
@@ -144,7 +113,20 @@ const FormPets = ({ mascota, setMascota }) => {
             type="number"
             placeholder="Peso en kg"
             onChange={handleChange}
-            value={mascota.peso}
+            value={pet.peso}
+          />
+        </div>
+        <div className="container__inputs">
+          <label htmlFor="sexo" className=" labels">
+            Sexo
+          </label>
+          <input
+            name="sexo"
+            className=" inputs"
+            type="text"
+            placeholder="Sexo"
+            onChange={handleChange}
+            value={pet.sexo}
           />
         </div>
         <div className="container__inputs">
@@ -157,7 +139,7 @@ const FormPets = ({ mascota, setMascota }) => {
             placeholder="Descripción general"
             name="notas"
             onChange={handleChange}
-            value={mascota.notas}
+            value={pet.notas}
           />
         </div>
         {/* BOTÓN PARA GUARDAR LA CITA */}
