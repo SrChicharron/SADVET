@@ -3,14 +3,11 @@ import ItemListPet from '@components/ItemListPet'
 import useMascota from '@hooks/useMascotas'
 import '@styles/ListadoPets.scss'
 
-const ListadoPets = ( { mascotaEdit, setMascotaEdit, showModal, handleClose } ) => {
-  const url = 'http://srchicharron.com:8080/dancing-queen/citas/getallcitas';
-
-  const mascotasResponse = useMascota.useGetMascotas(url);
+const ListadoPets = ( { pets, mascotaEdit, setMascotaEdit, showModal, handleClose, onDelete } ) => {
 
   return (
     <div>
-      {mascotasResponse.map((mascota) => {
+      {pets.map((mascota) => {
         return <ItemListPet
           key = {mascota.id}
           idMascota = {mascota.id}
@@ -19,6 +16,7 @@ const ListadoPets = ( { mascotaEdit, setMascotaEdit, showModal, handleClose } ) 
           setMascotaEdit = {setMascotaEdit}
           showModal = {showModal}
           handleClose={handleClose}
+          onDelete={onDelete}
         />
       })}
     </div>

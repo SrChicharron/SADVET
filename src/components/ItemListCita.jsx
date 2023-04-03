@@ -40,6 +40,7 @@ const ItemListCita = ({
       <SwipeAction
         onClick={() => {
           setCitaEdit(citaEditItem);
+          console.log(citaEditItem);
           showModal();
         }}
       >
@@ -52,7 +53,7 @@ const ItemListCita = ({
       <SwipeAction
         onClick={() => {
           console.log("Eliminar");
-          console.log(citaEditItem.idCita);
+          console.log(citaEditItem);
           eliminarCita();
         }}
         destructive={true}

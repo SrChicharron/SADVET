@@ -23,7 +23,7 @@ export const useGetMascotasByCliente = (url, idCliente) => {
   // Uso de useEffect para consumir la API
   useEffect ( () => {
       const getMascotas = async () => {
-        const response = await axios(url);
+        const response = await axios(url+idCliente);
         setMascota(response.data);
       };
       getMascotas();
@@ -80,6 +80,7 @@ export const useDeleteMascota = (url, mascotas) => {
 
 const mascotas = {
     useGetMascotas,
+    useGetMascotasByCliente,
     useAddMascota,
     useEditMascota,
     useDeleteMascota
