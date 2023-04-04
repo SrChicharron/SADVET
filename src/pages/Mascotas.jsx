@@ -206,7 +206,7 @@ const Mascotas = () => {
           setIdCliente={setIdCliente}
         />
       )}
-      <div className="container__pets">
+      <div className="container__pets main__container">
         <div className="content__titlePets">
           <h3 className="title__pets">ADMINISTRADOR DE MASCOTAS</h3>
         </div>
