@@ -58,8 +58,8 @@ const [clienteEditItem, setClienteEditItem] = useState({
       console.log("Es una nueva cita -> ");
       console.log(clienteEditItem);
 
-      const urlAdd = "http://srchicharron.com:8080/dancing-queen/clientes/deletecliente";
-      //const urlAdd = "http://localhost:2813/mascotas/deletemascota";
+      //const urlAdd = "http://srchicharron.com:8080/dancing-queen/clientes/deletecliente";
+      const urlAdd = "http://srchicharron.com:8080/sadvet/cliente/deleteCliente";
       const newCliente = {
         id: clienteEditItem.idCliente,
       };

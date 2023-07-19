@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import useClientes from "@hooks/useClientes";
+import useCatalogos from "@hooks/useCatalogos";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -16,8 +17,13 @@ const ModalFormPets = ({
   handleChange,
   formMascota,
 }) => {
-  const url ="http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
+  const url = "http://localhost:2813/sadvet/cliente/getClientes";
+  const urlEspecie = "http://localhost:2813/sadvet/catalogo/getEspecie";
+  const urlSexo = "http://localhost:2813/sadvet/catalogo/getSexo";
   const clientes = useClientes.useGetClientes(url);
+  const especies = useCatalogos.useGetCatalogo(urlEspecie);
+  const sexos = useCatalogos.useGetCatalogo(urlSexo);
+  
   console.log(pet);
 
   // VARIABLES PARA ALMACENAR LOS DATOS DEL FORMULARIO DE CITAS
@@ -74,17 +80,23 @@ const ModalFormPets = ({
           />
         </div>
         <div className="container__inputs">
-          <label htmlFor="especie" className=" labels">
-          Especie
+        <label htmlFor="idEspecie" className="label__citas labels">
+            Especie
           </label>
-          <input
-            name="especie"
-            className=" inputs"
-            type="text"
-            placeholder="Especie"
-            onChange={handleChange}
-            value={pet.especie}
-          />
+          <select
+            name="idEspecie"
+            className="input__citas inputs"
+            onChange={handle2ndChange}
+          >
+            <option value={pet.idEspecie}>
+            {pet.especie}
+            </option> 
+            {especies.map((especie, indice) => (
+              <option key={indice} value={especie.id}>
+                {especie.especie}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="container__inputs">
           <label htmlFor="raza" className=" labels">
@@ -138,17 +150,23 @@ const ModalFormPets = ({
           />
         </div>
         <div className="container__inputs">
-          <label htmlFor="sexo" className=" labels">
+        <label htmlFor="idEspecie" className="label__citas labels">
             Sexo
           </label>
-          <input
-            name="sexo"
-            className=" inputs"
-            type="text"
-            placeholder="H o M"
-            onChange={handleChange}
-            value={pet.sexo}
-          />
+          <select
+            name="idSexo"
+            className="input__citas inputs"
+            onChange={handle2ndChange}
+          >
+            <option value={pet.idSexo}>
+            {pet.sexo}
+            </option> 
+            {sexos.map((sexo, indice) => (
+              <option key={indice} value={sexo.id}>
+                {sexo.sexo}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="container__inputs">
           <label htmlFor="notas" className=" labels">

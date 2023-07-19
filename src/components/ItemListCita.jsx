@@ -18,7 +18,7 @@ import {
 import "react-swipeable-list/dist/styles.css";
 
 const ItemListCita = ({
-  idCita,
+  id,
   cita,
   citaEdit,
   setCitaEdit,
@@ -26,14 +26,11 @@ const ItemListCita = ({
   handleClose,
 }) => {
   const [citaEditItem, setCitaEditItem] = useState({
-    idCita: cita.id,
+    id: cita.id,
     fecha: cita.fecha,
     descripcion: cita.descripcion,
-    idCliente: cita.cliente.id,
-    nombreCliente: cita.cliente.nombre,
-    apellidosCliente: cita.cliente.apellidos,
-    idMascota: cita.mascota.id,
-    nombreMascota: cita.mascota.nombre,
+    idCliente: cita.idCliente,
+    idMascota: cita.idMascota,
   });
   const leadingActions = () => (
     <LeadingActions>
@@ -65,7 +62,7 @@ const ItemListCita = ({
 
   // funcion para eliminar la cita
   const eliminarCita = () => {
-    const urlDelete = "http://srchicharron.com:8080/dancing-queen/citas/deletecita";
+    const urlDelete = "http://localhost:2813/sadvet/cita/deleteCita";
 
     const newCitaToDelete = {
       id:citaEditItem.idCita
@@ -91,6 +88,17 @@ const ItemListCita = ({
       console.error(error);
     });
 };
+// ----------------- LISTAR LAS CITAS -----------------
+const [mascota, setMascota] = useState([]);
+//const url = "http://srchicharron.com:8080/dancing-queen/citas/getallcitas";
+const url = "http://localhost:2813/sadvet/mascota/getMascotaById?id="+citaEditItem.idMascota;
+const getMascota = async () => {
+  const req = await axios.get(url);
+  setMascota(req.data);
+};
+useEffect(() => {
+  getMascota();
+}, []);
 
   return (
     <SwipeableList>
@@ -101,7 +109,7 @@ const ItemListCita = ({
         <div className="container__itemListcita">
           <div className="content__imagePet">
             <img className="back__pug" src={backpug} alt="backpug" />
-            {cita.mascota.especie == "PERRO" ? (
+            {mascota.idEspecie == 2 ? (
               <img className="pug" src={Pug} alt="Mascota" />
             ) : (
               <img className="cat" src={cat} alt="Mascota" />
@@ -109,13 +117,12 @@ const ItemListCita = ({
           </div>
           <div className="content__information">
             <div className="content__name">
-              <p className="cita__namePet">{cita.mascota.nombre}</p>
+              <p className="cita__namePet">{mascota.nombre}</p>
             </div>
             <div className="content__info">
-              <p>{cita.mascota.raza}</p>
-              <p>{cita.mascota.sexo}</p>
-              <p>{cita.mascota.edad} años</p>
-              <p>{cita.mascota.peso} kg</p>
+              <p>{mascota.peso}</p>
+              <p>{cita.idMascota}</p>
+              <p>{mascota.peso} kg</p>
             </div>
             <div className="content__datetime">
               <p>{cita.fecha}</p>
@@ -125,7 +132,7 @@ const ItemListCita = ({
             </div>
             <img
               className="icon__gender"
-              src={cita.mascota.sexo == "M" ? male : female}
+              src={mascota.idSexo == 2 ? male : female}
             />
           </div>
         </div>

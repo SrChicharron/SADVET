@@ -57,8 +57,8 @@ const Clientes = () => {
       console.log("Es una nueva cita -> ");
       console.log(client);
 
-      const urlAdd = "http://srchicharron.com:8080/dancing-queen/clientes/addcliente";
-      //const urlAdd = "http://localhost:2813/mascotas/addmascota";
+      //const urlAdd = "http://srchicharron.com:8080/dancing-queen/clientes/addcliente";
+      const urlAdd = "http://localhost:2813/sadvet/cliente/addCliente";
       const newCliente = {
             nombre:formData.get('nombre'),
             apellidos:formData.get('apellidos'),
@@ -91,8 +91,9 @@ const Clientes = () => {
       console.log("Se tiene que editar este cliente -> " + client.idCliente);
       console.log(client);
 
-      const urlEdit = "http://srchicharron.com:8080/dancing-queen/clientes/updatecliente";
-      //const urlEdit = "http://localhost:2813/mascotas/updatemascota";
+      //const urlEdit = "http://srchicharron.com:8080/dancing-queen/clientes/updatecliente";
+      const urlEdit = "http://srchicharron.com:8080/sadvet/cliente/updateCliente";
+      
       const newCliente = {
             id: client.idCliente,
             nombre:formData.get('nombre'),
@@ -151,7 +152,8 @@ const Clientes = () => {
   };
 
   // ----------------- LISTAR LOS CLIENTES -----------------
-  const urlGetClientes = 'http://srchicharron.com:8080/dancing-queen/clientes/getallclientes';
+  //const urlGetClientes = 'http://srchicharron.com:8080/dancing-queen/clientes/getallclientes';
+  const urlGetClientes = 'http://localhost:2813/sadvet/cliente/getClientes'
   
   const [clientes, setClientes] = useState([]);
   const fetchClientes = async () =>{

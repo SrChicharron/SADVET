@@ -40,14 +40,11 @@ const Home = () => {
 
   // ----------------- VARIABLES PARA EL FORMULARIO -----------------
   const [cita, setCita] = useState({
-    idCita: "",
+    id: "",
     fecha: "",
     descripcion: "",
     idCliente: "",
-    nombreCliente: "",
-    apellidosCliente: "",
     idMascota: "",
-    nombreMascota: "",
   });
 
   const formCita = useRef(null);
@@ -61,16 +58,13 @@ const Home = () => {
       console.log("Es una nueva cita -> ");
       console.log(cita);
 
-      const urlAdd = "http://srchicharron.com:8080/dancing-queen/citas/addcita";
+      //const urlAdd = "http://srchicharron.com:8080/dancing-queen/citas/addcita";
+      const urlAdd = "http://localhost:2813/sadvet/cita/addCita";
       const newCita = {
         fecha: formData.get("fecha"),
         descripcion: formData.get("descripcion"),
-        cliente: {
-          id: formData.get("idCliente"),
-        },
-        mascota: {
-          id: formData.get("idMascota"),
-        },
+        idCliente: formData.get("idCliente"),
+        idMascota: formData.get("idMascota"),
       };
       console.log("Datos de la newCita");
       console.log(newCita);
@@ -98,17 +92,13 @@ const Home = () => {
       console.log("Se tiene que editar esta cita -> " + cita.idCita);
       console.log(cita);
 
-      const urlEdit = "http://srchicharron.com:8080/dancing-queen/citas/addcita";
+      const urlEdit = "http://localhost:2813/sadvet/cita/updateCita";
       const newCita = {
-        id: cita.idCita,
+        id: cita.id,
         fecha: formData.get("fecha"),
         descripcion: formData.get("descripcion"),
-        cliente: {
-          id: formData.get("idCliente"),
-        },
-        mascota: {
-          id: formData.get("idMascota"),
-        },
+        idCliente: formData.get("idCliente"),
+        idMascota: formData.get("idMascota"),
       };
       console.log("Datos de la newCita");
       console.log(newCita);
@@ -142,10 +132,7 @@ const Home = () => {
       fecha: "",
       descripcion: "",
       idCliente: "",
-      nombreCliente: "",
-      apellidosCliente: "",
       idMascota: "",
-      nombreMascota: "",
     });
   };
 
@@ -156,7 +143,8 @@ const Home = () => {
 
   // ----------------- LISTAR LAS CITAS -----------------
   const [citas, setCitas] = useState([]);
-  const url = "http://srchicharron.com:8080/dancing-queen/citas/getallcitas";
+  //const url = "http://srchicharron.com:8080/dancing-queen/citas/getallcitas";
+  const url = "http://localhost:2813/sadvet/cita/getCitas";
   const getAllCitas = async () => {
     const req = await axios.get(url);
     setCitas(req.data);

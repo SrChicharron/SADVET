@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import useClientes from "@hooks/useClientes";
 import useMascota from "@hooks/useMascotas";
+import useCatalogos from "@hooks/useCatalogos";
 import "@styles/FormPets.scss";
 import "@styles/FormCitas.scss";
 
 const FormPets = ({ pet, setPet,idCliente, setIdCliente, handleSubmit, handleChange,formMascota }) => {
-  const url =
-    "http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
+  //const url = "http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
+  const url = "http://localhost:2813/sadvet/cliente/getClientes";
+  const urlEspecie = "http://localhost:2813/sadvet/catalogo/getEspecie";
+  const urlSexo = "http://localhost:2813/sadvet/catalogo/getSexo";
   const clientes = useClientes.useGetClientes(url);
+  const especies = useCatalogos.useGetCatalogo(urlEspecie);
+  const sexos = useCatalogos.useGetCatalogo(urlSexo);
   console.log(pet);
 
   // VARIABLES PARA ALMACENAR LOS DATOS DEL FORMULARIO DE CITAS
@@ -29,11 +34,11 @@ const FormPets = ({ pet, setPet,idCliente, setIdCliente, handleSubmit, handleCha
             className="input__citas inputs"
             onChange={handle2ndChange}
           >
-            <option value={pet.idCliente}>
-            {pet.nombreCliente + " " + pet.apellidoCliente}
+            <option value={0}>
+            
             </option> 
             {clientes.map((cliente, indice) => (
-              <option key={indice} value={cliente.id}>
+              <option key={indice} value={cliente.id} selected={pet.idCliente === cliente.id}>
                 {cliente.nombre + " " + cliente.apellidos}
               </option>
             ))}
@@ -53,17 +58,23 @@ const FormPets = ({ pet, setPet,idCliente, setIdCliente, handleSubmit, handleCha
           />
         </div>
         <div className="container__inputs">
-          <label htmlFor="especie" className=" labels">
-          Especie
+          <label htmlFor="idEspecie" className="label__citas labels">
+            Especie
           </label>
-          <input
-            name="especie"
-            className=" inputs"
-            type="text"
-            placeholder="Especie"
-            onChange={handleChange}
-            value={pet.especie}
-          />
+          <select
+            name="idEspecie"
+            className="input__citas inputs"
+            onChange={handle2ndChange}
+          >
+            <option value={0}>
+            
+            </option> 
+            {especies.map((especie, indice) => (
+              <option key={indice} value={especie.id} selected={pet.idEspecie === especie.id}>
+                {especie.especie}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="container__inputs">
           <label htmlFor="raza" className=" labels">
@@ -91,19 +102,6 @@ const FormPets = ({ pet, setPet,idCliente, setIdCliente, handleSubmit, handleCha
           />
         </div>
         <div className="container__inputs">
-          <label htmlFor="edad" className=" labels">
-            Edad
-          </label>
-          <input
-            name="edad"
-            className=" inputs"
-            type="number"
-            placeholder="Edad"
-            onChange={handleChange}
-            value={pet.edad}
-          />
-        </div>
-        <div className="container__inputs">
           <label htmlFor="peso" className=" labels">
             Peso
           </label>
@@ -117,17 +115,23 @@ const FormPets = ({ pet, setPet,idCliente, setIdCliente, handleSubmit, handleCha
           />
         </div>
         <div className="container__inputs">
-          <label htmlFor="sexo" className=" labels">
+        <label htmlFor="idEspecie" className="label__citas labels">
             Sexo
           </label>
-          <input
-            name="sexo"
-            className=" inputs"
-            type="text"
-            placeholder="H o M"
-            onChange={handleChange}
-            value={pet.sexo}
-          />
+          <select
+            name="idSexo"
+            className="input__citas inputs"
+            onChange={handle2ndChange}
+          >
+            <option value={0}>
+            
+            </option> 
+            {sexos.map((sexo, indice) => (
+              <option key={indice} value={sexo.id} selected={pet.idSexo === sexo.id}>
+                {sexo.sexo}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="container__inputs">
           <label htmlFor="notas" className=" labels">

@@ -39,18 +39,15 @@ const Mascotas = () => {
 
   // ----------------- VARIABLES PARA EL FORMULARIO -----------------
   const [pet, setPet] = useState({
-    idMascota: "",
+    id: "",
     nombre: "",
     fechaNacimiento: "",
     peso: "",
     notas: "",
     idCliente: "",
-    nombreCliente: "",
-    apellidoCliente: "",
-    sexo: "",
-    especie: "",
+    idEspecie: "",
+    idSexo: "",
     raza: "",
-    edad: "",
   });
 
   const formMascota = useRef(null);
@@ -58,26 +55,24 @@ const Mascotas = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("hanldeSubmit");
+    console.log(pet);
     const formData = new FormData(formMascota.current);
 
-    if (pet.idMascota === "" || pet.idMascota === undefined) {
+    if (pet.id === "" || pet.id === undefined) {
       console.log("Es una nueva cita -> ");
       console.log(pet);
 
-      const urlAdd =
-        "http://srchicharron.com:8080/dancing-queen/mascotas/addmascota";
-      //const urlAdd = "http://localhost:2813/mascotas/addmascota";
+      //const urlAdd = "http://srchicharron.com:8080/dancing-queen/mascotas/addmascota";
+      const urlAdd = "http://localhost:2813/sadvet/mascota/addMascota";
       const newPet = {
         nombre: formData.get("nombreMascota"),
         fechaNacimiento: formData.get("fechaNacimiento"),
         peso: formData.get("peso"),
         notas: formData.get("notas"),
-        sexo: formData.get("sexo"),
-        especie: formData.get("especie"),
         raza: formData.get("raza"),
-        cliente: {
-          id: formData.get("idCliente"),
-        },
+        idEspecie:formData.get("idEspecie"),
+        idSexo:formData.get("idSexo"),
+        idCliente: formData.get("idCliente"),
       };
       console.log("Datos de la newPet");
       console.log(newPet);
@@ -105,21 +100,19 @@ const Mascotas = () => {
       console.log("Se tiene que editar esta cita -> " + pet.idMascota);
       console.log(pet);
 
-      const urlEdit =
-        "http://srchicharron.com:8080/dancing-queen/mascotas/updatemascota";
-      //const urlEdit = "http://localhost:2813/mascotas/updatemascota";
+      //const urlEdit = "http://srchicharron.com:8080/dancing-queen/mascotas/updatemascota";
+      const urlEdit = "http://localhost:2813/sadvet/mascota/updateMascota";
       const newPet = {
-        id: pet.idMascota,
+        id: pet.id,
         nombre: formData.get("nombreMascota"),
         fechaNacimiento: formData.get("fechaNacimiento"),
         peso: formData.get("peso"),
         notas: formData.get("notas"),
-        sexo: formData.get("sexo"),
-        especie: formData.get("especie"),
         raza: formData.get("raza"),
-        cliente: {
-          id: formData.get("idCliente"),
-        },
+        idEspecie:formData.get("idEspecie"),
+        idSexo:formData.get("idSexo"),
+        idCliente: formData.get("idCliente"),
+        
       };
       console.log("Datos de la newCita");
       console.log(newPet);
@@ -156,18 +149,15 @@ const Mascotas = () => {
   const formatearFormulario = () => {
     // LIMPIAR EL FORMULARIO
     setPet({
-      idMascota: "",
+      id: "",
       nombre: "",
       fechaNacimiento: "",
       peso: "",
       notas: "",
       idCliente: "",
-      nombreCliente: "",
-      apellidosCliente: "",
-      sexo: "",
-      especie: "",
       raza: "",
-      edad: "",
+      idEspecie:"",
+      idSexo:"",
     });
   };
 
@@ -177,12 +167,18 @@ const Mascotas = () => {
   };
 
   // ----------------- LISTAR LAS MASCOTAS -----------------
-  const urlGetPets =
-    "http://srchicharron.com:8080/dancing-queen/mascotas/getmascotasbyclienteid?idCliente=";
+  //const urlGetPets = "http://srchicharron.com:8080/dancing-queen/mascotas/getmascotasbyclienteid?idCliente=";
+  let urlGetPets=""
+  if(pet.idCliente===""){
+    urlGetPets = "http://localhost:2813/sadvet/mascota/getMascotasByIdCliente?id=0";
+  }else{
+    urlGetPets = "http://localhost:2813/sadvet/mascota/getMascotasByIdCliente?id="+pet.idCliente;
+  }
+  //const urlGetPets = "http://localhost:2813/sadvet/mascota/getMascotasByIdCliente?id=";
   const [idCliente, setIdCliente] = useState(0);
   const [pets, setPets] = useState([]);
   const fetchMascotas = async () => {
-    const req = await axios.get(urlGetPets + idCliente);
+    const req = await axios.get(urlGetPets);
     setPets(req.data);
   };
   useEffect(() => {

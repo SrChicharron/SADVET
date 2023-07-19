@@ -9,8 +9,10 @@ const FormCitas = ({ cita, setCita, handleSubmit, handleChange, formatearFormula
 
   const [mascotas, setMascotas] = useState([]);
   const [idCliente, setIdCliente]=useState(0);
-  const url ="http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
-  const urlMascotas="http://srchicharron.com:8080/dancing-queen/mascotas/getmascotasbyclienteid?idCliente=";
+  //const url ="http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
+  //const urlMascotas="http://srchicharron.com:8080/dancing-queen/mascotas/getmascotasbyclienteid?idCliente=";
+  const url ="http://localhost:2813/sadvet/cliente/getClientes";
+  const urlMascotas="http://localhost:2813/sadvet/mascota/getMascotasByIdCliente?id=";
   const clientes = useClientes.useGetClientes(url);
 
   const fetchMascotas = async () =>{
@@ -41,8 +43,8 @@ const FormCitas = ({ cita, setCita, handleSubmit, handleChange, formatearFormula
             className="input__citas inputs"
             onChange={handleChange2nd}
           >
-            <option value={cita.idCliente}>
-              {cita.nombreCliente + " " + cita.apellidosCliente}
+            <option value={0}>
+              
             </option>
             {clientes.map((cliente, indice) => (
               <option key={indice} value={cliente.id}>
@@ -61,7 +63,7 @@ const FormCitas = ({ cita, setCita, handleSubmit, handleChange, formatearFormula
             className="input__citas inputs"
             onChange={handleChange}
           >
-            <option value={cita.idMascota}>{cita.nombreMascota}</option>
+            <option value={0}></option>
             {mascotas.map((mascota, indice) => (
               <option key={indice} value={mascota.id}>
                 {mascota.nombre}

@@ -18,18 +18,15 @@ import "react-swipeable-list/dist/styles.css";
 
 const ItemListPet = ({idMascota,mascota,mascotaEdit,setMascotaEdit,showModal,handleClose,onDelete}) => {
   const [mascotaEditItem, setMascotaEditItem] = useState({
-    idMascota: mascota.id,
+    id: mascota.id,
     nombreMascota: mascota.nombre,
     fechaNacimiento: mascota.fechaNacimiento,
     peso: mascota.peso,
     notas: mascota.notas,
-    idCliente: mascota.cliente.id,
-    nombreCliente:mascota.cliente.nombre,
-    apellidoCliente:mascota.cliente.apellidos,
-    sexo: mascota.sexo,
-    especie: mascota.especie,
+    idCliente: mascota.idCliente,
+    idSexo: mascota.idSexo,
+    idEspecie: mascota.idEspecie,
     raza: mascota.raza,
-    edad: mascota.edad,
   });
   const leadingActions = () => (
     <LeadingActions>
@@ -69,10 +66,10 @@ const ItemListPet = ({idMascota,mascota,mascotaEdit,setMascotaEdit,showModal,han
       console.log("Es una nueva cita -> ");
       console.log(mascotaEditItem);
 
-      const urlAdd = "http://srchicharron.com:8080/dancing-queen/mascotas/deletemascota";
-      //const urlAdd = "http://localhost:2813/mascotas/deletemascota";
+      //const urlAdd = "http://srchicharron.com:8080/dancing-queen/mascotas/deletemascota";
+      const urlAdd = "http://localhost:2813/sadvet/mascota/deleteMascota";
       const newPet = {
-        id: mascotaEditItem.idMascota,
+        id: mascotaEditItem.id,
       };
       console.log("Datos de la newPet");
       console.log(newPet);
@@ -108,7 +105,7 @@ const ItemListPet = ({idMascota,mascota,mascotaEdit,setMascotaEdit,showModal,han
           <div className="content__imagePet">
             <img className="back__pug" src={backpug} alt="backpug" />
             {
-              mascota.especie == "PERRO" ? (
+              mascota.idEspecie == 2 ? (
               <img className="pug" src={Pug} alt="Mascota" /> ) : (
                 <img className="cat" src={cat} alt="Mascota" /> )
             }
@@ -131,7 +128,7 @@ const ItemListPet = ({idMascota,mascota,mascotaEdit,setMascotaEdit,showModal,han
                 {mascota.notas}
               </p>
             </div>
-            <img className="icon__gender" src={mascota.sexo == "M" ? male : female} />
+            <img className="icon__gender" src={mascota.idSexo == 2 ? male : female} />
           </div>
         </div>
       </SwipeableListItem>
