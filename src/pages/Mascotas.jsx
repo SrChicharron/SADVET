@@ -187,21 +187,6 @@ const Mascotas = () => {
   return (
     <div>
       <NavBar />
-      {windowSize < 768 && (
-        <ModalFormPets
-          className="modalFormCitas"
-          pet={pet}
-          setPet={setPet}
-          show={show}
-          handleClose={handleClose}
-          handleSubmit={handleSubmit}
-          handleChange={handleChange}
-          formatearFormulario={formatearFormulario}
-          formMascota={formMascota}
-          idCliente={idCliente}
-          setIdCliente={setIdCliente}
-        />
-      )}
       <div className="container__pets main__container">
         <div className="content__titlePets">
           <h3 className="title__pets">ADMINISTRADOR DE MASCOTAS</h3>

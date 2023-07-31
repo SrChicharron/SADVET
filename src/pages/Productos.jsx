@@ -1,14 +1,13 @@
 import React,{useState, useEffect, useRef} from 'react'
 import NavBar from '@components/NavBar'
 import ButtonNavBar from '@components/ButtonNavBar'
-import FormClientes from "@containers/FormClientes"
-import ListadoClientes from "@containers/ListadoClientes"
-import ModalFormCliente from '@containers/ModalFormCliente'
+import FormProductos from "@containers/FormProductos"
+import ListadoProductos from "@containers/ListadoProductos"
 import axios from "axios";
 import '@styles/Clientes.scss'
 
 
-const Clientes = () => {
+const Productos = () => {
   // ----------------- VARIABLES PARA EL MODAL -----------------
   const [show, setShow] = useState(false);
   const showModal = () => {
@@ -39,11 +38,10 @@ const Clientes = () => {
 
   // ----------------- VARIABLES PARA EL FORMULARIO -----------------
   const [client, setClient] = useState({
-    idCliente: "",
+    id: "",
     nombre: "",
-    apellidos: "",
-    telefono: "",
-    email: "",
+    descripcion: "",
+    precio: "",
   });
 
   const formCliente = useRef(null);
@@ -53,17 +51,16 @@ const Clientes = () => {
     console.log("hanldeSubmit");
     const formData = new FormData(formCliente.current);
 
-    if (client.idCliente === "" || client.idCliente === undefined) {
+    if (client.id === "" || client.id === undefined) {
       console.log("Es una nueva cita -> ");
       console.log(client);
 
       //const urlAdd = "http://srchicharron.com:8080/dancing-queen/clientes/addcliente";
-      const urlAdd = "http://localhost:2813/sadvet/cliente/addCliente";
+      const urlAdd = "http://localhost:2813/sadvet/producto/addProducto";
       const newCliente = {
             nombre:formData.get('nombre'),
-            apellidos:formData.get('apellidos'),
-            telefono:formData.get('telefono'),
-            email:formData.get('email')
+            descripcion:formData.get('descripcion'),
+            precio:formData.get('precio'),
       };
       console.log("Datos del nuevo cliente");
       console.log(newCliente);
@@ -92,14 +89,13 @@ const Clientes = () => {
       console.log(client);
 
       //const urlEdit = "http://srchicharron.com:8080/dancing-queen/clientes/updatecliente";
-      const urlEdit = "http://srchicharron.com:8080/sadvet/cliente/updateCliente";
+      const urlEdit = "http://localhost:2813/sadvet/producto/updateProducto";
       
       const newCliente = {
-            id: client.idCliente,
+            id: client.id,
             nombre:formData.get('nombre'),
-            apellidos:formData.get('apellidos'),
-            telefono:formData.get('telefono'),
-            email:formData.get('email')
+            descripcion:formData.get('descripcion'),
+            precio:formData.get('precio'),
       };
       console.log("Datos del newCliente");
       console.log(newCliente);
@@ -138,11 +134,10 @@ const Clientes = () => {
   const formatearFormulario = () => {
     // LIMPIAR EL FORMULARIO
     setClient({
-      idCliente: "",
+      id: "",
       nombre: "",
-      apellidos: "",
-      telefono: "",
-      email: "",
+      descripcion: "",
+      precio: "",
     });
   };
 
@@ -153,7 +148,7 @@ const Clientes = () => {
 
   // ----------------- LISTAR LOS CLIENTES -----------------
   //const urlGetClientes = 'http://srchicharron.com:8080/dancing-queen/clientes/getallclientes';
-  const urlGetClientes = 'http://localhost:2813/sadvet/cliente/getClientes'
+  const urlGetClientes = 'http://localhost:2813/sadvet/producto/getProductos'
   
   const [clientes, setClientes] = useState([]);
   const fetchClientes = async () =>{
@@ -169,15 +164,15 @@ const Clientes = () => {
       <NavBar />
       <div className='container__clientes main__container'>
         <div className='content__titleClientes'>
-          <h3 className='title__citas'>ADMINISTRADOR DE CLIENTES</h3>
+          <h3 className='title__citas'>ADMINISTRADOR DE PRODUCTOS</h3>
         </div>
 
         <div className='body__content'>
         <button className="button__citas button btn__addCliente" onClick={handleShow}>
-            AGREGAR CLIENTE
+            AGREGAR PRODUCTO
           </button>
           <div className='content__formClientes'>
-            <FormClientes 
+            <FormProductos 
               client={client}
               setClient={setClient}
               show={show}
@@ -190,7 +185,7 @@ const Clientes = () => {
           </div>
           <div className='content__listClientes'>
             
-            <ListadoClientes 
+            <ListadoProductos 
               clientes={clientes}
               clienteEdit={client}
               setClienteEdit={setClient}
@@ -206,4 +201,4 @@ const Clientes = () => {
   )
 }
 
-export default Clientes
+export default Productos

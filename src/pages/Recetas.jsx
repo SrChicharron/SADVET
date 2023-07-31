@@ -1,14 +1,13 @@
 import React,{useState, useEffect, useRef} from 'react'
 import NavBar from '@components/NavBar'
 import ButtonNavBar from '@components/ButtonNavBar'
-import FormClientes from "@containers/FormClientes"
-import ListadoClientes from "@containers/ListadoClientes"
-import ModalFormCliente from '@containers/ModalFormCliente'
+import FormReceta from "@containers/FormReceta"
+import ListadoReceta from "@containers/ListadoReceta"
 import axios from "axios";
 import '@styles/Clientes.scss'
 
 
-const Clientes = () => {
+const Recetas = () => {
   // ----------------- VARIABLES PARA EL MODAL -----------------
   const [show, setShow] = useState(false);
   const showModal = () => {
@@ -39,12 +38,14 @@ const Clientes = () => {
 
   // ----------------- VARIABLES PARA EL FORMULARIO -----------------
   const [client, setClient] = useState({
-    idCliente: "",
+    id: "",
     nombre: "",
-    apellidos: "",
-    telefono: "",
-    email: "",
+    cantidad: "",
+    precio: "",
+    subtotal: "",
+    idProducto: "",
   });
+  const [total, setTotal] = useState(0.0);
 
   const formCliente = useRef(null);
 
@@ -53,17 +54,15 @@ const Clientes = () => {
     console.log("hanldeSubmit");
     const formData = new FormData(formCliente.current);
 
-    if (client.idCliente === "" || client.idCliente === undefined) {
+    if (client.id === "" || client.id === undefined) {
       console.log("Es una nueva cita -> ");
       console.log(client);
 
       //const urlAdd = "http://srchicharron.com:8080/dancing-queen/clientes/addcliente";
-      const urlAdd = "http://localhost:2813/sadvet/cliente/addCliente";
+      const urlAdd = "http://localhost:2813/sadvet/receta/addReceta";
       const newCliente = {
-            nombre:formData.get('nombre'),
-            apellidos:formData.get('apellidos'),
-            telefono:formData.get('telefono'),
-            email:formData.get('email')
+            idProducto:formData.get('idProducto'),
+            cantidad:formData.get('cantidad'),
       };
       console.log("Datos del nuevo cliente");
       console.log(newCliente);
@@ -92,14 +91,12 @@ const Clientes = () => {
       console.log(client);
 
       //const urlEdit = "http://srchicharron.com:8080/dancing-queen/clientes/updatecliente";
-      const urlEdit = "http://srchicharron.com:8080/sadvet/cliente/updateCliente";
+      const urlEdit = "http://localhost:2813/sadvet/receta/updateReceta";
       
       const newCliente = {
-            id: client.idCliente,
-            nombre:formData.get('nombre'),
-            apellidos:formData.get('apellidos'),
-            telefono:formData.get('telefono'),
-            email:formData.get('email')
+            id: client.id,
+            idProducto:formData.get('idProducto'),
+            cantidad:formData.get('cantidad'),
       };
       console.log("Datos del newCliente");
       console.log(newCliente);
@@ -138,11 +135,12 @@ const Clientes = () => {
   const formatearFormulario = () => {
     // LIMPIAR EL FORMULARIO
     setClient({
-      idCliente: "",
+      id: "",
       nombre: "",
-      apellidos: "",
-      telefono: "",
-      email: "",
+      cantidad: "",
+      precio: "",
+      subtotal: "",
+      idProducto: "",
     });
   };
 
@@ -153,31 +151,49 @@ const Clientes = () => {
 
   // ----------------- LISTAR LOS CLIENTES -----------------
   //const urlGetClientes = 'http://srchicharron.com:8080/dancing-queen/clientes/getallclientes';
-  const urlGetClientes = 'http://localhost:2813/sadvet/cliente/getClientes'
+  const urlGetClientes = 'http://localhost:2813/sadvet/receta/getReceta'
+  const urlTotal = 'http://localhost:2813/sadvet/receta/total'
+  const urlLimpiar = 'http://localhost:2813/sadvet/receta/deleteAll'
   
   const [clientes, setClientes] = useState([]);
+  const getSum = async () =>{
+    const req = await axios.get(urlTotal);
+    setTotal(req.data);
+  };
   const fetchClientes = async () =>{
     const req = await axios.get(urlGetClientes);
     setClientes(req.data);
   };
+
+  const limpiarTotal = async () =>{
+    const req = await axios.post(urlLimpiar);
+    getSum();
+    fetchClientes();
+  };
+
   useEffect(()=>{
 		fetchClientes();
-	}, [])
+        getSum();
+	}, [clientes])
 
   return (
     <div>
       <NavBar />
       <div className='container__clientes main__container'>
         <div className='content__titleClientes'>
-          <h3 className='title__citas'>ADMINISTRADOR DE CLIENTES</h3>
+          <h3 className='title__citas'>GENERADOR DE RECETAS</h3>
+        </div>
+
+        <div className='content__titleClientes'>
+          <h3 className='title__citas'>Total: ${total}</h3>
         </div>
 
         <div className='body__content'>
         <button className="button__citas button btn__addCliente" onClick={handleShow}>
-            AGREGAR CLIENTE
+            AGREGAR A LA RECETA
           </button>
           <div className='content__formClientes'>
-            <FormClientes 
+            <FormReceta 
               client={client}
               setClient={setClient}
               show={show}
@@ -190,7 +206,7 @@ const Clientes = () => {
           </div>
           <div className='content__listClientes'>
             
-            <ListadoClientes 
+            <ListadoReceta 
               clientes={clientes}
               clienteEdit={client}
               setClienteEdit={setClient}
@@ -200,10 +216,13 @@ const Clientes = () => {
             />
           </div>
         </div>
+        <button className="botonPrincipal" onClick={limpiarTotal}>
+            Limpiar
+          </button>
       </div>
       <ButtonNavBar />
     </div>
   )
 }
 
-export default Clientes
+export default Recetas
