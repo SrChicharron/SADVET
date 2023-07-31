@@ -2,6 +2,7 @@ import React,{useState, useEffect, useRef} from 'react'
 import NavBar from '@components/NavBar'
 import ButtonNavBar from '@components/ButtonNavBar'
 import FormReceta from "@containers/FormReceta"
+import FormEmail from "@containers/FormEmail"
 import ListadoReceta from "@containers/ListadoReceta"
 import axios from "axios";
 import '@styles/Clientes.scss'
@@ -45,9 +46,14 @@ const Recetas = () => {
     subtotal: "",
     idProducto: "",
   });
+
+  const [client2, setClient2] = useState({
+    id: "",
+  });
   const [total, setTotal] = useState(0.0);
 
   const formCliente = useRef(null);
+  const formCliente2 = useRef(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -125,6 +131,39 @@ const Recetas = () => {
     formatearFormulario();
   };
 
+  //a
+  const handleSubmit2 = (e) => {
+    e.preventDefault();
+    console.log("hanldeSubmit2");
+    //const formData2 = new FormData(formCliente2.current);
+
+    if (client2.id !== "" || client2.id !== 0) {
+      console.log("enviar correo -> ");
+      console.log(client2);
+
+      //const urlAdd = "http://srchicharron.com:8080/dancing-queen/clientes/addcliente";
+      const urlAdd = "http://localhost:2813/sadvet/receta/enviar?id="+client2.idCliente;
+      axios({
+        method: "POST",
+        url: urlAdd,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers":
+            "POST, GET, PUT, DELETE, OPTIONS, HEAD, Authorization, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Access-Control-Allow-Origin",
+          "Content-Type": "application/json",
+        },
+        mode: "no-cors",
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } 
+    limpiarTotal();
+  };
+
   const onDelete = () => {
     
     console.log("onDeleteOrigin");
@@ -147,6 +186,11 @@ const Recetas = () => {
   const handleChange = (event) => {
     setClient({ ...client, [event.target.name]: event.target.value });
     console.log(client);
+  };
+
+  const handleChange2 = (event) => {
+    setClient2({ ...client2, [event.target.name]: event.target.value });
+    console.log(client2);
   };
 
   // ----------------- LISTAR LOS CLIENTES -----------------
@@ -204,6 +248,16 @@ const Recetas = () => {
               formCliente={formCliente}
             />
           </div>
+          <FormEmail 
+              client={client2}
+              setClient={setClient2}
+              show={show}
+              handleClose={handleClose}
+              handleSubmit={handleSubmit2}
+              handleChange={handleChange2}
+              formatearFormulario={formatearFormulario}
+              formCliente={formCliente2}
+            />
           <div className='content__listClientes'>
             
             <ListadoReceta 
