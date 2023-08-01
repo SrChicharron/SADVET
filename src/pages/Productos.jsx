@@ -56,7 +56,7 @@ const Productos = () => {
       console.log(client);
 
       //const urlAdd = "http://srchicharron.com:8080/dancing-queen/clientes/addcliente";
-      const urlAdd = "http://localhost:2813/sadvet/producto/addProducto";
+      const urlAdd = "http://srchicharron.com:2813/sadvet/producto/addProducto";
       const newCliente = {
             nombre:formData.get('nombre'),
             descripcion:formData.get('descripcion'),
@@ -89,7 +89,7 @@ const Productos = () => {
       console.log(client);
 
       //const urlEdit = "http://srchicharron.com:8080/dancing-queen/clientes/updatecliente";
-      const urlEdit = "http://localhost:2813/sadvet/producto/updateProducto";
+      const urlEdit = "http://srchicharron.com:2813/sadvet/producto/updateProducto";
       
       const newCliente = {
             id: client.id,
@@ -148,7 +148,7 @@ const Productos = () => {
 
   // ----------------- LISTAR LOS CLIENTES -----------------
   //const urlGetClientes = 'http://srchicharron.com:8080/dancing-queen/clientes/getallclientes';
-  const urlGetClientes = 'http://localhost:2813/sadvet/producto/getProductos'
+  const urlGetClientes = 'http://srchicharron.com:2813/sadvet/producto/getProductos'
   
   const [clientes, setClientes] = useState([]);
   const fetchClientes = async () =>{

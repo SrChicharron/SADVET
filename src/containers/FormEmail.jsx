@@ -7,7 +7,7 @@ import "@styles/FormCitas.scss";
 
 const FormEmail = ({ idCliente, setIdCliente, handleSubmit, handleChange,formMail }) => {
   //const url = "http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
-  const url = "http://localhost:2813/sadvet/cliente/getClientes";
+  const url = "http://srchicharron.com:2813/sadvet/cliente/getClientes";
   const clientes = useClientes.useGetClientes(url);
 
   // VARIABLES PARA ALMACENAR LOS DATOS DEL FORMULARIO DE CITAS

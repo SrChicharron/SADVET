@@ -63,7 +63,7 @@ const Mascotas = () => {
       console.log(pet);
 
       //const urlAdd = "http://srchicharron.com:8080/dancing-queen/mascotas/addmascota";
-      const urlAdd = "http://localhost:2813/sadvet/mascota/addMascota";
+      const urlAdd = "http://srchicharron.com:2813/sadvet/mascota/addMascota";
       const newPet = {
         nombre: formData.get("nombreMascota"),
         fechaNacimiento: formData.get("fechaNacimiento"),
@@ -101,7 +101,7 @@ const Mascotas = () => {
       console.log(pet);
 
       //const urlEdit = "http://srchicharron.com:8080/dancing-queen/mascotas/updatemascota";
-      const urlEdit = "http://localhost:2813/sadvet/mascota/updateMascota";
+      const urlEdit = "http://srchicharron.com:2813/sadvet/mascota/updateMascota";
       const newPet = {
         id: pet.id,
         nombre: formData.get("nombreMascota"),
@@ -170,11 +170,11 @@ const Mascotas = () => {
   //const urlGetPets = "http://srchicharron.com:8080/dancing-queen/mascotas/getmascotasbyclienteid?idCliente=";
   let urlGetPets=""
   if(pet.idCliente===""){
-    urlGetPets = "http://localhost:2813/sadvet/mascota/getMascotasByIdCliente?id=0";
+    urlGetPets = "http://srchicharron.com:2813/sadvet/mascota/getMascotasByIdCliente?id=0";
   }else{
-    urlGetPets = "http://localhost:2813/sadvet/mascota/getMascotasByIdCliente?id="+pet.idCliente;
+    urlGetPets = "http://srchicharron.com:2813/sadvet/mascota/getMascotasByIdCliente?id="+pet.idCliente;
   }
-  //const urlGetPets = "http://localhost:2813/sadvet/mascota/getMascotasByIdCliente?id=";
+  //const urlGetPets = "http://srchicharron.com:2813/sadvet/mascota/getMascotasByIdCliente?id=";
   const [idCliente, setIdCliente] = useState(0);
   const [pets, setPets] = useState([]);
   const fetchMascotas = async () => {

@@ -6,7 +6,7 @@ import useCatalogos from "@hooks/useCatalogos";
 
 const FormProductos = ({client, setClient, handleSubmit, handleChange,formCliente }) => {
 
-    const urlProducto = "http://localhost:2813/sadvet/producto/getProductos";
+    const urlProducto = "http://srchicharron.com:2813/sadvet/producto/getProductos";
     const productos = useCatalogos.useGetCatalogo(urlProducto);
     
     return (

@@ -62,7 +62,7 @@ const ItemListCita = ({
 
   // funcion para eliminar la cita
   const eliminarCita = () => {
-    const urlDelete = "http://localhost:2813/sadvet/cita/deleteCita";
+    const urlDelete = "http://srchicharron.com:2813/sadvet/cita/deleteCita";
 
     const newCitaToDelete = {
       id:citaEditItem.idCita
@@ -91,7 +91,7 @@ const ItemListCita = ({
 // ----------------- LISTAR LAS CITAS -----------------
 const [mascota, setMascota] = useState([]);
 //const url = "http://srchicharron.com:8080/dancing-queen/citas/getallcitas";
-const url = "http://localhost:2813/sadvet/mascota/getMascotaById?id="+citaEditItem.idMascota;
+const url = "http://srchicharron.com:2813/sadvet/mascota/getMascotaById?id="+citaEditItem.idMascota;
 const getMascota = async () => {
   const req = await axios.get(url);
   setMascota(req.data);

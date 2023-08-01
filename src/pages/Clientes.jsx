@@ -58,7 +58,7 @@ const Clientes = () => {
       console.log(client);
 
       //const urlAdd = "http://srchicharron.com:8080/dancing-queen/clientes/addcliente";
-      const urlAdd = "http://localhost:2813/sadvet/cliente/addCliente";
+      const urlAdd = "http://srchicharron.com:2813/sadvet/cliente/addCliente";
       const newCliente = {
             nombre:formData.get('nombre'),
             apellidos:formData.get('apellidos'),
@@ -153,7 +153,7 @@ const Clientes = () => {
 
   // ----------------- LISTAR LOS CLIENTES -----------------
   //const urlGetClientes = 'http://srchicharron.com:8080/dancing-queen/clientes/getallclientes';
-  const urlGetClientes = 'http://localhost:2813/sadvet/cliente/getClientes'
+  const urlGetClientes = 'http://srchicharron.com:2813/sadvet/cliente/getClientes'
   
   const [clientes, setClientes] = useState([]);
   const fetchClientes = async () =>{

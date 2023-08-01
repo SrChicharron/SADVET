@@ -25,7 +25,7 @@ const ProductoItem = ({idProducto,producto,productoEdit,setProductoEdit,onDelete
           console.log(productoEditItem);
     
           //const urlDelete= "http://srchicharron.com:8080/sadvet/productos/deleteproducto";
-          //const urlAdd = "http://localhost:2813/mascotas/deletemascota";
+          //const urlAdd = "http://srchicharron.com:2813/mascotas/deletemascota";
           const newProducto = {
             id: productoEditItem.idProducto,
           };
