@@ -6,7 +6,7 @@ import useCatalogos from "@hooks/useCatalogos";
 
 const FormProductos = ({client, setClient, handleSubmit, handleChange,formCliente }) => {
 
-    const urlProducto = "http://srchicharron.com:2813/sadvet/producto/getProductos";
+    const urlProducto = "https://sadvetapi.ashymeadow-04120cb0.westus2.azurecontainerapps.io/sadvet/producto/getProductos";
     const productos = useCatalogos.useGetCatalogo(urlProducto);
     
     return (

@@ -17,9 +17,9 @@ const ModalFormPets = ({
   handleChange,
   formMascota,
 }) => {
-  const url = "http://srchicharron.com:2813/sadvet/cliente/getClientes";
-  const urlEspecie = "http://srchicharron.com:2813/sadvet/catalogo/getEspecie";
-  const urlSexo = "http://srchicharron.com:2813/sadvet/catalogo/getSexo";
+  const url = "https://sadvetapi.ashymeadow-04120cb0.westus2.azurecontainerapps.io/sadvet/cliente/getClientes";
+  const urlEspecie = "https://sadvetapi.ashymeadow-04120cb0.westus2.azurecontainerapps.io/sadvet/catalogo/getEspecie";
+  const urlSexo = "https://sadvetapi.ashymeadow-04120cb0.westus2.azurecontainerapps.io/sadvet/catalogo/getSexo";
   const clientes = useClientes.useGetClientes(url);
   const especies = useCatalogos.useGetCatalogo(urlEspecie);
   const sexos = useCatalogos.useGetCatalogo(urlSexo);

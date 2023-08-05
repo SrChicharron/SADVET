@@ -11,8 +11,8 @@ const FormCitas = ({ cita, setCita, handleSubmit, handleChange, formatearFormula
   const [idCliente, setIdCliente]=useState(0);
   //const url ="http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
   //const urlMascotas="http://srchicharron.com:8080/dancing-queen/mascotas/getmascotasbyclienteid?idCliente=";
-  const url ="http://srchicharron.com:2813/sadvet/cliente/getClientes";
-  const urlMascotas="http://srchicharron.com:2813/sadvet/mascota/getMascotasByIdCliente?id=";
+  const url ="https://sadvetapi.ashymeadow-04120cb0.westus2.azurecontainerapps.io/sadvet/cliente/getClientes";
+  const urlMascotas="https://sadvetapi.ashymeadow-04120cb0.westus2.azurecontainerapps.io/sadvet/mascota/getMascotasByIdCliente?id=";
   const clientes = useClientes.useGetClientes(url);
 
   const fetchMascotas = async () =>{

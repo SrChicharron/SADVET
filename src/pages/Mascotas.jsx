@@ -63,7 +63,7 @@ const Mascotas = () => {
       console.log(pet);
 
       //const urlAdd = "http://srchicharron.com:8080/dancing-queen/mascotas/addmascota";
-      const urlAdd = "http://srchicharron.com:2813/sadvet/mascota/addMascota";
+      const urlAdd = "https://sadvetapi.ashymeadow-04120cb0.westus2.azurecontainerapps.io/sadvet/mascota/addMascota";
       const newPet = {
         nombre: formData.get("nombreMascota"),
         fechaNacimiento: formData.get("fechaNacimiento"),
@@ -101,7 +101,7 @@ const Mascotas = () => {
       console.log(pet);
 
       //const urlEdit = "http://srchicharron.com:8080/dancing-queen/mascotas/updatemascota";
-      const urlEdit = "http://srchicharron.com:2813/sadvet/mascota/updateMascota";
+      const urlEdit = "https://sadvetapi.ashymeadow-04120cb0.westus2.azurecontainerapps.io/sadvet/mascota/updateMascota";
       const newPet = {
         id: pet.id,
         nombre: formData.get("nombreMascota"),
@@ -170,11 +170,11 @@ const Mascotas = () => {
   //const urlGetPets = "http://srchicharron.com:8080/dancing-queen/mascotas/getmascotasbyclienteid?idCliente=";
   let urlGetPets=""
   if(pet.idCliente===""){
-    urlGetPets = "http://srchicharron.com:2813/sadvet/mascota/getMascotasByIdCliente?id=0";
+    urlGetPets = "https://sadvetapi.ashymeadow-04120cb0.westus2.azurecontainerapps.io/sadvet/mascota/getMascotasByIdCliente?id=0";
   }else{
-    urlGetPets = "http://srchicharron.com:2813/sadvet/mascota/getMascotasByIdCliente?id="+pet.idCliente;
+    urlGetPets = "https://sadvetapi.ashymeadow-04120cb0.westus2.azurecontainerapps.io/sadvet/mascota/getMascotasByIdCliente?id="+pet.idCliente;
   }
-  //const urlGetPets = "http://srchicharron.com:2813/sadvet/mascota/getMascotasByIdCliente?id=";
+  //const urlGetPets = "https://sadvetapi.ashymeadow-04120cb0.westus2.azurecontainerapps.io/sadvet/mascota/getMascotasByIdCliente?id=";
   const [idCliente, setIdCliente] = useState(0);
   const [pets, setPets] = useState([]);
   const fetchMascotas = async () => {

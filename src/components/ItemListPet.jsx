@@ -67,7 +67,7 @@ const ItemListPet = ({idMascota,mascota,mascotaEdit,setMascotaEdit,showModal,han
       console.log(mascotaEditItem);
 
       //const urlAdd = "http://srchicharron.com:8080/dancing-queen/mascotas/deletemascota";
-      const urlAdd = "http://srchicharron.com:2813/sadvet/mascota/deleteMascota";
+      const urlAdd = "https://sadvetapi.ashymeadow-04120cb0.westus2.azurecontainerapps.io/sadvet/mascota/deleteMascota";
       const newPet = {
         id: mascotaEditItem.id,
       };

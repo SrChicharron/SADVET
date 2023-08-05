@@ -82,7 +82,7 @@ const [receta, setReceta] = useState({
       console.log(cita);
 
       //const urlAdd = "http://srchicharron.com:8080/dancing-queen/citas/addcita";
-      const urlAdd = "http://srchicharron.com:2813/sadvet/cita/addCita";
+      const urlAdd = "https://sadvetapi.ashymeadow-04120cb0.westus2.azurecontainerapps.io/sadvet/cita/addCita";
       const newCita = {
         fecha: formData.get("fecha"),
         descripcion: formData.get("descripcion"),
@@ -115,7 +115,7 @@ const [receta, setReceta] = useState({
       console.log("Se tiene que editar esta cita -> " + cita.idCita);
       console.log(cita);
 
-      const urlEdit = "http://srchicharron.com:2813/sadvet/cita/updateCita";
+      const urlEdit = "https://sadvetapi.ashymeadow-04120cb0.westus2.azurecontainerapps.io/sadvet/cita/updateCita";
       const newCita = {
         id: cita.id,
         fecha: formData.get("fecha"),
@@ -208,7 +208,7 @@ const [receta, setReceta] = useState({
   // ----------------- LISTAR LAS CITAS -----------------
   const [citas, setCitas] = useState([]);
   //const url = "http://srchicharron.com:8080/dancing-queen/citas/getallcitas";
-  const url = "http://srchicharron.com:2813/sadvet/cita/getCitas";
+  const url = "https://sadvetapi.ashymeadow-04120cb0.westus2.azurecontainerapps.io/sadvet/cita/getCitas";
   const getAllCitas = async () => {
     const req = await axios.get(url);
     setCitas(req.data);

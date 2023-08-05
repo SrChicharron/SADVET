@@ -60,7 +60,7 @@ const [clienteEditItem, setClienteEditItem] = useState({
       console.log(clienteEditItem);
 
       //const urlAdd = "http://srchicharron.com:8080/dancing-queen/clientes/deletecliente";
-      const urlAdd = "http://srchicharron.com:2813/sadvet/receta/deleteReceta";
+      const urlAdd = "https://sadvetapi.ashymeadow-04120cb0.westus2.azurecontainerapps.io/sadvet/receta/deleteReceta";
       const newCliente = {
         id: clienteEditItem.id,
       };

@@ -7,9 +7,9 @@ import "@styles/FormCitas.scss";
 
 const FormPets = ({ pet, setPet,idCliente, setIdCliente, handleSubmit, handleChange,formMascota }) => {
   //const url = "http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
-  const url = "http://srchicharron.com:2813/sadvet/cliente/getClientes";
-  const urlEspecie = "http://srchicharron.com:2813/sadvet/catalogo/getEspecie";
-  const urlSexo = "http://srchicharron.com:2813/sadvet/catalogo/getSexo";
+  const url = "https://sadvetapi.ashymeadow-04120cb0.westus2.azurecontainerapps.io/sadvet/cliente/getClientes";
+  const urlEspecie = "https://sadvetapi.ashymeadow-04120cb0.westus2.azurecontainerapps.io/sadvet/catalogo/getEspecie";
+  const urlSexo = "https://sadvetapi.ashymeadow-04120cb0.westus2.azurecontainerapps.io/sadvet/catalogo/getSexo";
   const clientes = useClientes.useGetClientes(url);
   const especies = useCatalogos.useGetCatalogo(urlEspecie);
   const sexos = useCatalogos.useGetCatalogo(urlSexo);
