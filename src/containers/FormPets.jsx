@@ -6,10 +6,15 @@ import "@styles/FormPets.scss";
 import "@styles/FormCitas.scss";
 
 const FormPets = ({ pet, setPet,idCliente, setIdCliente, handleSubmit, handleChange,formMascota }) => {
+  const validateAlphanumeric = (text) => {
+    // Expresión regular para comprobar que solo contiene caracteres alfanuméricos
+    const alphanumericRegex = /^[a-zA-Z0-9]+$/;
+    return alphanumericRegex.test(text);
+  };
   //const url = "http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
-  const url = "http://localhost:2813/sadvet/cliente/getClientes";
-  const urlEspecie = "http://localhost:2813/sadvet/catalogo/getEspecie";
-  const urlSexo = "http://localhost:2813/sadvet/catalogo/getSexo";
+  const url = "http://srchicharron.com:2813/sadvet/cliente/getClientes";
+  const urlEspecie = "http://srchicharron.com:2813/sadvet/catalogo/getEspecie";
+  const urlSexo = "http://srchicharron.com:2813/sadvet/catalogo/getSexo";
   const clientes = useClientes.useGetClientes(url);
   const especies = useCatalogos.useGetCatalogo(urlEspecie);
   const sexos = useCatalogos.useGetCatalogo(urlSexo);
@@ -33,6 +38,7 @@ const FormPets = ({ pet, setPet,idCliente, setIdCliente, handleSubmit, handleCha
             name="idCliente"
             className="input__citas inputs"
             onChange={handle2ndChange}
+            required="required"
           >
             <option value={0}>
             
@@ -55,6 +61,7 @@ const FormPets = ({ pet, setPet,idCliente, setIdCliente, handleSubmit, handleCha
             placeholder="Nombre"
             onChange={handleChange}
             value={pet.nombreMascota}
+            required
           />
         </div>
         <div className="container__inputs">
@@ -65,6 +72,7 @@ const FormPets = ({ pet, setPet,idCliente, setIdCliente, handleSubmit, handleCha
             name="idEspecie"
             className="input__citas inputs"
             onChange={handle2ndChange}
+            required
           >
             <option value={0}>
             
@@ -87,6 +95,7 @@ const FormPets = ({ pet, setPet,idCliente, setIdCliente, handleSubmit, handleCha
             placeholder="Raza"
             onChange={handleChange}
             value={pet.raza}
+            required
           />
         </div>
         <div className="container__inputs">
@@ -99,6 +108,7 @@ const FormPets = ({ pet, setPet,idCliente, setIdCliente, handleSubmit, handleCha
             type="datetime-local"
             onChange={handleChange}
             value={pet.fechaNacimiento}
+            required
           />
         </div>
         <div className="container__inputs">
@@ -112,6 +122,12 @@ const FormPets = ({ pet, setPet,idCliente, setIdCliente, handleSubmit, handleCha
             placeholder="Peso en kg"
             onChange={handleChange}
             value={pet.peso}
+            required
+            pattern="[0-9]{10}"
+            id="pesoinput"
+            onKeyPress={(e) => {
+              if (!validateAlphanumeric(e.key)) e.preventDefault();
+            }}
           />
         </div>
         <div className="container__inputs">
@@ -122,6 +138,7 @@ const FormPets = ({ pet, setPet,idCliente, setIdCliente, handleSubmit, handleCha
             name="idSexo"
             className="input__citas inputs"
             onChange={handle2ndChange}
+            required
           >
             <option value={0}>
             
@@ -144,6 +161,7 @@ const FormPets = ({ pet, setPet,idCliente, setIdCliente, handleSubmit, handleCha
             name="notas"
             onChange={handleChange}
             value={pet.notas}
+            required
           />
         </div>
         {/* BOTÓN PARA GUARDAR LA CITA */}

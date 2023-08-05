@@ -6,7 +6,7 @@ import useCatalogos from "@hooks/useCatalogos";
 
 const FormProductos = ({client, setClient, handleSubmit, handleChange,formCliente }) => {
 
-    const urlProducto = "http://localhost:2813/sadvet/producto/getProductos";
+    const urlProducto = "http://srchicharron.com:2813/sadvet/producto/getProductos";
     const productos = useCatalogos.useGetCatalogo(urlProducto);
     
     return (
@@ -20,6 +20,7 @@ const FormProductos = ({client, setClient, handleSubmit, handleChange,formClient
             name="idProducto"
             className="input__citas inputs"
             onChange={handleChange}
+            required
           >
             <option value={0}>
             
@@ -33,9 +34,9 @@ const FormProductos = ({client, setClient, handleSubmit, handleChange,formClient
         </div>
 
                     <label className='label'>Cantidad</label>
-                    <input type="number" className='input' name='cantidad' value={client.cantidad} onChange={handleChange} />
+                    <input type="number" className='input' name='cantidad' value={client.cantidad} onChange={handleChange} required/>
 
-                    <input type='submit' className='botonPrincipal' value='Agregar Producto'/>
+                    <input type='submit' className='botonPrincipal' value='Agregar Receta'/>
                 </form>
                 
     );

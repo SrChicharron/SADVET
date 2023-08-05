@@ -17,9 +17,9 @@ const ModalFormPets = ({
   handleChange,
   formMascota,
 }) => {
-  const url = "http://localhost:2813/sadvet/cliente/getClientes";
-  const urlEspecie = "http://localhost:2813/sadvet/catalogo/getEspecie";
-  const urlSexo = "http://localhost:2813/sadvet/catalogo/getSexo";
+  const url = "http://srchicharron.com:2813/sadvet/cliente/getClientes";
+  const urlEspecie = "http://srchicharron.com:2813/sadvet/catalogo/getEspecie";
+  const urlSexo = "http://srchicharron.com:2813/sadvet/catalogo/getSexo";
   const clientes = useClientes.useGetClientes(url);
   const especies = useCatalogos.useGetCatalogo(urlEspecie);
   const sexos = useCatalogos.useGetCatalogo(urlSexo);
@@ -55,6 +55,7 @@ const ModalFormPets = ({
             name="idCliente"
             className="input__citas inputs"
             onChange={handle2ndChange}
+            required
           >
             <option value={pet.idCliente}>
             {pet.nombreCliente + " " + pet.apellidoCliente}
@@ -77,6 +78,7 @@ const ModalFormPets = ({
             placeholder="Nombre"
             onChange={handleChange}
             value={pet.nombreMascota}
+            required
           />
         </div>
         <div className="container__inputs">
@@ -87,6 +89,7 @@ const ModalFormPets = ({
             name="idEspecie"
             className="input__citas inputs"
             onChange={handle2ndChange}
+            required
           >
             <option value={pet.idEspecie}>
             {pet.especie}
@@ -109,6 +112,7 @@ const ModalFormPets = ({
             placeholder="Raza"
             onChange={handleChange}
             value={pet.raza}
+            required
           />
         </div>
         <div className="container__inputs">
@@ -121,6 +125,7 @@ const ModalFormPets = ({
             type="datetime-local"
             onChange={handleChange}
             value={pet.fechaNacimiento}
+            required
           />
         </div>
         <div className="container__inputs">
@@ -134,6 +139,7 @@ const ModalFormPets = ({
             placeholder="Edad"
             onChange={handleChange}
             value={pet.edad}
+            required
           />
         </div>
         <div className="container__inputs">
@@ -147,6 +153,7 @@ const ModalFormPets = ({
             placeholder="Peso en kg"
             onChange={handleChange}
             value={pet.peso}
+            required
           />
         </div>
         <div className="container__inputs">
@@ -157,6 +164,7 @@ const ModalFormPets = ({
             name="idSexo"
             className="input__citas inputs"
             onChange={handle2ndChange}
+            required
           >
             <option value={pet.idSexo}>
             {pet.sexo}
@@ -179,6 +187,7 @@ const ModalFormPets = ({
             name="notas"
             onChange={handleChange}
             value={pet.notas}
+            required
           />
         </div>
           {/* BOTÓN PARA GUARDAR LA CITA */}

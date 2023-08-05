@@ -18,7 +18,7 @@ const ModalFormHistorial = ({show,handleClose}) => {
                     <select
                         name="idCliente"
                         className="input__citas inputs"
-                        
+                        required
                     >
                     <option>
                     mascota
@@ -31,11 +31,11 @@ const ModalFormHistorial = ({show,handleClose}) => {
                         name="fecha"
                         className="input__citas inputs"
                         type="datetime-local"
-            
+                        required
                     />
 
                     <label className='label'>Descripcion de la enfermedad</label>
-                    <input type='text' className='input' name='descripcion'/>
+                    <input type='text' className='input' name='descripcion' required/>
 
                     <div className="container__inputs-modal">
                         <p onClick={handleClose} className="btn__cancel">

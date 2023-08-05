@@ -11,9 +11,9 @@ const ModalFormCitas = ({cita,setCita,show,handleClose,handleSubmit,handleChange
   const [mascotas, setMascotas] = useState([]);
   const [idCliente, setIdCliente] = useState(0);
   const url =
-    "http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
+    "http://srchicharron.com:2813/sadvet/clientes/getallclientes";
   const urlMascotas =
-    "http://srchicharron.com:8080/dancing-queen/mascotas/getmascotasbyclienteid?idCliente=";
+    "http://srchicharron.com:2813/sadvet/mascotas/getmascotasbyclienteid?idCliente=";
   const clientes = useClientes.useGetClientes(url);
 
   const fetchMascotas = async () => {
@@ -56,6 +56,7 @@ const ModalFormCitas = ({cita,setCita,show,handleClose,handleSubmit,handleChange
               name="idCliente"
               className="input__citas inputs"
               onChange={handleChange2nd}
+              required
             >
               <option value={cita.idCliente}>
                 {cita.nombreCliente + " " + cita.apellidosCliente}
@@ -76,6 +77,7 @@ const ModalFormCitas = ({cita,setCita,show,handleClose,handleSubmit,handleChange
               name="idMascota"
               className="input__citas inputs"
               onChange={handleChange}
+              required
             >
               <option value={cita.idMascota}>{cita.nombreMascota}</option>
               {mascotas.map((mascota, indice) => (
@@ -96,6 +98,7 @@ const ModalFormCitas = ({cita,setCita,show,handleClose,handleSubmit,handleChange
               type="datetime-local"
               onChange={handleChange}
               value={cita.fecha}
+              required
             />
           </div>
           {/* DESCRIPCIÓN DE LA CITA */}
@@ -110,6 +113,7 @@ const ModalFormCitas = ({cita,setCita,show,handleClose,handleSubmit,handleChange
               name="descripcion"
               onChange={handleChange}
               value={cita.descripcion}
+              required
             />
           </div>
           {/* BOTÓN PARA GUARDAR LA CITA */}

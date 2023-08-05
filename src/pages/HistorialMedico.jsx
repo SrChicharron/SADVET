@@ -70,7 +70,7 @@ const handleShow2 = () => setShow2(true);
       console.log(cita);
 
       //const urlAdd = "http://srchicharron.com:8080/dancing-queen/citas/addcita";
-      const urlAdd = "http://localhost:2813/sadvet/historial/addHistorial";
+      const urlAdd = "http://srchicharron.com:2813/sadvet/historial/addHistorial";
       const newCita = {
         fecha: formData.get("fecha"),
         descripcion: formData.get("descripcion"),
@@ -103,7 +103,7 @@ const handleShow2 = () => setShow2(true);
       console.log("Se tiene que editar esta cita -> " + cita.idCita);
       console.log(cita);
 
-      const urlEdit = "http://localhost:2813/sadvet/historial/updateHistorial";
+      const urlEdit = "http://srchicharron.com:2813/sadvet/historial/updateHistorial";
       const newCita = {
         id: cita.id,
         fecha: formData.get("fecha"),
@@ -160,9 +160,9 @@ const handleShow2 = () => setShow2(true);
   const getAllCitas = async () => {
     let url=""
   if(idMascota===0){
-    url = "http://localhost:2813/sadvet/historial/getHistorialById?id="+idMascota;
+    url = "http://srchicharron.com:2813/sadvet/historial/getHistorialById?id="+idMascota;
   }else{
-    url = "http://localhost:2813/sadvet/historial/getHistorialById?id="+idMascota;
+    url = "http://srchicharron.com:2813/sadvet/historial/getHistorialById?id="+idMascota;
   }
   //const url = "http://localhost:2813/sadvet/historial/getCitas";
     const req = await axios.get(url);

@@ -9,8 +9,8 @@ const FormHistorial = ({ cita, setCita, handleSubmit, handleChange, formatearFor
   const [idCliente, setIdCliente]=useState(0);
   //const url ="http://srchicharron.com:8080/dancing-queen/clientes/getallclientes";
   //const urlMascotas="http://srchicharron.com:8080/dancing-queen/mascotas/getmascotasbyclienteid?idCliente=";
-  const url ="http://localhost:2813/sadvet/cliente/getClientes";
-  const urlMascotas="http://localhost:2813/sadvet/mascota/getMascotasByIdCliente?id=";
+  const url ="http://srchicharron.com:2813/sadvet/cliente/getClientes";
+  const urlMascotas="http://srchicharron.com:2813/sadvet/mascota/getMascotasByIdCliente?id=";
   const clientes = useClientes.useGetClientes(url);
 
   const fetchMascotas = async () =>{
@@ -53,6 +53,7 @@ const FormHistorial = ({ cita, setCita, handleSubmit, handleChange, formatearFor
             name="idCliente"
             className="input__citas inputs"
             onChange={handle3ndChange}
+            required
           >
             <option value={0}>
               
@@ -73,6 +74,7 @@ const FormHistorial = ({ cita, setCita, handleSubmit, handleChange, formatearFor
             name="idMascota"
             className="input__citas inputs"
             onChange={handle4ndChange}
+            required
           >
             <option value={0}></option>
             {mascotas.map((mascota, indice) => (
@@ -93,6 +95,7 @@ const FormHistorial = ({ cita, setCita, handleSubmit, handleChange, formatearFor
             type="datetime-local"
             onChange={handleChange}
             value={cita.fecha}
+            required
           />
         </div>
         {/* DESCRIPCIÓN DE LA CITA */}
@@ -107,6 +110,7 @@ const FormHistorial = ({ cita, setCita, handleSubmit, handleChange, formatearFor
             name="descripcion"
             onChange={handleChange}
             value={cita.descripcion}
+            required
           />
         </div>
         {/* BOTÓN PARA GUARDAR LA CITA */}

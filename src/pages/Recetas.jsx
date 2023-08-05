@@ -65,7 +65,7 @@ const Recetas = () => {
       console.log(client);
 
       //const urlAdd = "http://srchicharron.com:8080/dancing-queen/clientes/addcliente";
-      const urlAdd = "http://localhost:2813/sadvet/receta/addReceta";
+      const urlAdd = "http://srchicharron.com:2813/sadvet/receta/addReceta";
       const newCliente = {
             idProducto:formData.get('idProducto'),
             cantidad:formData.get('cantidad'),
@@ -97,7 +97,7 @@ const Recetas = () => {
       console.log(client);
 
       //const urlEdit = "http://srchicharron.com:8080/dancing-queen/clientes/updatecliente";
-      const urlEdit = "http://localhost:2813/sadvet/receta/updateReceta";
+      const urlEdit = "http://srchicharron.com:2813/sadvet/receta/updateReceta";
       
       const newCliente = {
             id: client.id,
@@ -142,7 +142,7 @@ const Recetas = () => {
       console.log(client2);
 
       //const urlAdd = "http://srchicharron.com:8080/dancing-queen/clientes/addcliente";
-      const urlAdd = "http://localhost:2813/sadvet/receta/enviar?id="+client2.idCliente;
+      const urlAdd = "http://srchicharron.com:2813/sadvet/receta/enviar?id="+client2.idCliente;
       axios({
         method: "POST",
         url: urlAdd,
@@ -195,9 +195,9 @@ const Recetas = () => {
 
   // ----------------- LISTAR LOS CLIENTES -----------------
   //const urlGetClientes = 'http://srchicharron.com:8080/dancing-queen/clientes/getallclientes';
-  const urlGetClientes = 'http://localhost:2813/sadvet/receta/getReceta'
-  const urlTotal = 'http://localhost:2813/sadvet/receta/total'
-  const urlLimpiar = 'http://localhost:2813/sadvet/receta/deleteAll'
+  const urlGetClientes = 'http://srchicharron.com:2813/sadvet/receta/getReceta'
+  const urlTotal = 'http://srchicharron.com:2813/sadvet/receta/total'
+  const urlLimpiar = 'http://srchicharron.com:2813/sadvet/receta/deleteAll'
   
   const [clientes, setClientes] = useState([]);
   const getSum = async () =>{

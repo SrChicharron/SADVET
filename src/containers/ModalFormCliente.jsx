@@ -21,16 +21,16 @@ const ModalFormCliente = ({show, handleClose, handleChange, client, setClient, h
                     <Modal.Body>
                     <form className='formularioCliente' onSubmit={handleSubmit} ref={formCliente}>
                     <label className='label'>Nombre(s)</label>
-                    <input type='text' className='input' name='nombre' value={client.nombre} onChange={handleChange}/>
+                    <input type='text' className='input' name='nombre' value={client.nombre} onChange={handleChange} required/>
 
                     <label className='label'>Apellidos</label>
-                    <input type='text' className='input' name='apellidos' value={client.apellidos} onChange={handleChange}/>
+                    <input type='text' className='input' name='apellidos' value={client.apellidos} onChange={handleChange} required/>
 
                     <label className='label'>Email</label>
-                    <input type='text' className='input' name='email' value={client.email} onChange={handleChange} pattern=".+@.+\..+"/>
+                    <input type='text' className='input' name='email' value={client.email} onChange={handleChange} pattern=".+@.+\..+" required/>
 
                     <label className='label'>Celular</label>
-                    <input type='tel' max='10' className='input' name='telefono' value={client.telefono} onChange={handleChange} minLength="10" maxLength="10" pattern="[0-9]{10}" placeholder='4400112233'/>
+                    <input type='tel' max='10' className='input' name='telefono' value={client.telefono} onChange={handleChange} minLength="10" maxLength="10" pattern="[0-9]{10}" placeholder='4400112233' required/>
 
                     <Button variant="secondary" onClick={handleClose} className='botonCancelar'>
                         Cancelar
